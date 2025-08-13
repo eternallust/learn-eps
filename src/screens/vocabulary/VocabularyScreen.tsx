@@ -1,9 +1,17 @@
 import { COLORS } from "@/constants/theme";
 import { BinderCard, Header, ObviaBold, Text } from "@components/ui";
+import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import { useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Platform, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PagerView from "react-native-pager-view";
 import Animated, { useSharedValue } from "react-native-reanimated";
@@ -27,6 +35,7 @@ interface Project {
 }
 
 export const VocabularyScreen: React.FC = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>("kosakata_eps_topik");
   const scrollX = useSharedValue(0);
   const pagerRef = useRef<PagerView>(null);
@@ -187,7 +196,7 @@ export const VocabularyScreen: React.FC = () => {
           <View style={{ flex: 1 }}>
             <BinderCard
               style={{ width: "100%", flex: 1 }}
-              onPress={() => null}
+              onPress={() => router.push("/vocabulary/vocabulary-stack")}
               showBinderHole
             >
               <View
@@ -218,7 +227,7 @@ export const VocabularyScreen: React.FC = () => {
           <View style={{ flex: 1 }}>
             <BinderCard
               style={{ width: "100%", flex: 1 }}
-              onPress={() => null}
+              onPress={() => router.push("/vocabulary/vocabulary-stack")}
               showBinderHole
             >
               <View
@@ -315,6 +324,23 @@ export const VocabularyScreen: React.FC = () => {
         >
           {tabs.map((tab) => (
             <View key={tab} style={{ flex: 1 }}>
+              {/* Search Input */}
+              <View style={styles.searchContainer}>
+                <View style={styles.searchInputWrapper}>
+                  <Ionicons
+                    name="search"
+                    size={18}
+                    color="#8E8E93"
+                    style={{ marginRight: 8 }}
+                  />
+                  <TextInput
+                    style={styles.searchInput}
+                    placeholder="Cari nomor bab, nama bab, atau nama kosakata.."
+                    placeholderTextColor="#8E8E93"
+                  />
+                </View>
+              </View>
+
               <Animated.FlatList
                 ListEmptyComponent={
                   <View
@@ -348,7 +374,6 @@ export const VocabularyScreen: React.FC = () => {
                 initialNumToRender={5}
                 contentContainerStyle={{
                   paddingHorizontal: 16,
-                  paddingTop: 12,
                   paddingBottom: 20,
                   // Mengisi seluruh tinggi parent ketika tidak ada data
                   flex: projectsByTab[tab].length === 0 ? 1 : undefined,

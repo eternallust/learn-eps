@@ -69,7 +69,27 @@ export const styles = StyleSheet.create({
     color: "#007AFF",
     fontWeight: "bold",
   },
+  searchContainer: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    backgroundColor: "#FFFFFF",
+  },
+  searchInputWrapper: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 40,
+    backgroundColor: "#F2F2F7",
+    borderRadius: 10,
+    paddingHorizontal: 12,
+  },
+  searchInput: {
+    flex: 1,
+    height: 40,
+    fontSize: 14,
+    color: COLORS.primarydark,
+  },
   contentContainer: {
+    paddingVertical: 16,
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
