@@ -2,8 +2,9 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -27,33 +28,46 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="homescreen/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="lesson/index" options={{ headerShown: false }} />
-        <Stack.Screen name="quiz/index" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="vocabulary/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="vocabulary/vocabulary-stack/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="profile/index" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="simulation/index"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="grammar/index" options={{ headerShown: false }} />
-        <Stack.Screen name="info/index" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="dark" />
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="homescreen/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="lesson/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="quiz/index" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="vocabulary/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="vocabulary/vocabulary-flash-card/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="profile/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="simulation/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="grammar/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="info/index" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          <StatusBar style="dark" />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }

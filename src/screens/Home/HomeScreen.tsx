@@ -15,13 +15,10 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { styles } from "./styles";
 const { width: screenWidth } = Dimensions.get("window");
 
 const HomeScreen: React.FC = () => {
-  const insets = useSafeAreaInsets();
-
   // Reanimated scroll handling
   const scrollY = useSharedValue(0);
 
@@ -138,7 +135,7 @@ const HomeScreen: React.FC = () => {
           onScroll={scrollHandler}
           scrollEventThrottle={16}
         >
-          <View style={[styles.customHeader, { marginTop: insets.top }]}>
+          <View style={[styles.customHeader]}>
             <View style={styles.headerLeft}>
               <View style={styles.titleContainer}>
                 <Text variant="bold" size="xl" style={[styles.headerTitle]}>
@@ -203,7 +200,9 @@ const HomeScreen: React.FC = () => {
                   <TouchableOpacity
                     style={styles.startButton}
                     activeOpacity={0.8}
-                    onPress={() => router.push(item.screen.toLowerCase() as any)}
+                    onPress={() =>
+                      router.push(item.screen.toLowerCase() as any)
+                    }
                   >
                     <Text
                       variant="medium"

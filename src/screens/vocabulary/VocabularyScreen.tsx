@@ -196,7 +196,7 @@ export const VocabularyScreen: React.FC = () => {
           <View style={{ flex: 1 }}>
             <BinderCard
               style={{ width: "100%", flex: 1 }}
-              onPress={() => router.push("/vocabulary/vocabulary-stack")}
+              onPress={() => router.push("/vocabulary/vocabulary-flash-card")}
               showBinderHole
             >
               <View
