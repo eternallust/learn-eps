@@ -1,6 +1,5 @@
 import React from "react";
 import { View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "../Text";
 import { styles } from "./styles";
 
@@ -15,10 +14,8 @@ export const Header: React.FC<HeaderProps> = ({
   leftComponent,
   rightComponent,
 }) => {
-  const insets = useSafeAreaInsets();
-
   return (
-    <View style={[styles.safeArea, { paddingTop: insets.top }]}>
+    <View style={[styles.safeArea]}>
       <View style={styles.container}>
         <View style={styles.leftSection}>{leftComponent}</View>
         <View style={styles.centerSection}>
