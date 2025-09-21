@@ -1,4 +1,5 @@
 import { COLORS } from "@/constants/theme";
+import { vocabularies } from "@/data/vocabulary";
 import { BinderCard, Header, ObviaBold, Text } from "@components/ui";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
@@ -22,16 +23,16 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 
 type TabType = "kosakata_eps_topik" | "kustom_kosakata";
 
-interface Project {
-  id: string;
-  title: string;
-  price: number;
-  timeline: number;
-  dueDate: string;
-  user: {
-    name: string;
-    avatar: string;
-  };
+interface VocabularyChapter {
+  chapterName: string;
+  koreanChapterName: string;
+
+  vocabulary: {
+    koreanTitle: string;
+    englishTitle: string;
+    korean: string[];
+    indonesian: string[];
+  }[];
 }
 
 export const VocabularyScreen: React.FC = () => {
@@ -95,82 +96,16 @@ export const VocabularyScreen: React.FC = () => {
   }, []);
 
   // Sample data for projects by tab
-  const projectsByTab: Record<TabType, Project[]> = {
-    kosakata_eps_topik: [
-      {
-        id: "1",
-        title:
-          "Redesign our Design agency website to more attractive to clients",
-        price: 100,
-        timeline: 7,
-        dueDate: "Sept 12, 2023",
-        user: {
-          name: "Alexander Arnold",
-          avatar: "https://randomuser.me/api/portraits/men/32.jpg",
-        },
-      },
-      {
-        id: "2",
-        title: "Create stunning cover book for our marketing agency",
-        price: 800,
-        timeline: 7,
-        dueDate: "Sept 12, 2023",
-        user: {
-          name: "Bruno Fernand",
-          avatar: "https://randomuser.me/api/portraits/men/43.jpg",
-        },
-      },
-      {
-        id: "3",
-        title: "Create stunning cover book for our marketing agency",
-        price: 100,
-        timeline: 7,
-        dueDate: "Sept 12, 2023",
-        user: {
-          name: "Simon Cowell",
-          avatar: "https://randomuser.me/api/portraits/men/22.jpg",
-        },
-      },
-      {
-        id: "4",
-        title: "Design mobile app UI for fitness tracking application",
-        price: 250,
-        timeline: 14,
-        dueDate: "Sept 20, 2023",
-        user: {
-          name: "Jessica Parker",
-          avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-        },
-      },
-      {
-        id: "5",
-        title: "Create logo design for new tech startup",
-        price: 150,
-        timeline: 5,
-        dueDate: "Sept 15, 2023",
-        user: {
-          name: "Michael Johnson",
-          avatar: "https://randomuser.me/api/portraits/men/55.jpg",
-        },
-      },
-      {
-        id: "6",
-        title: "Develop branding guidelines for restaurant chain",
-        price: 350,
-        timeline: 10,
-        dueDate: "Sept 25, 2023",
-        user: {
-          name: "Sarah Williams",
-          avatar: "https://randomuser.me/api/portraits/women/67.jpg",
-        },
-      },
-    ],
-    kustom_kosakata: [],
-  };
 
   // Projects are accessed directly from projectsByTab[tab]
 
-  const renderProjectItem = ({ item }: { item: Project }) => (
+  const renderProjectItem = ({
+    item,
+    index,
+  }: {
+    item: VocabularyChapter;
+    index: number;
+  }) => (
     <View style={styles.projectCard}>
       <View
         style={{
@@ -185,75 +120,56 @@ export const VocabularyScreen: React.FC = () => {
       <View style={{ flex: 1, padding: 12, gap: 12 }}>
         <View>
           <Text style={{ textAlign: "center" }} variant="bold" size="lg">
-            Bab 40
+            {index ? `Bab ${index}` : "Pendahuluan"}
           </Text>
           <Text style={{ textAlign: "center" }} size="lg">
-            Plastic and Rubber Molding
+            {`${item.koreanChapterName} (${item.chapterName})`}
           </Text>
         </View>
 
-        <View style={{ flexDirection: "row", flex: 1, gap: 12 }}>
-          <View style={{ flex: 1 }}>
-            <BinderCard
-              style={{ width: "100%", flex: 1 }}
-              onPress={() => router.push("/vocabulary/vocabulary-flash-card")}
-              showBinderHole
-            >
-              <View
-                style={{
-                  height: "100%",
-                  flex: 1,
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+        <View
+          style={{ flexDirection: "row", flex: 1, flexWrap: "wrap", gap: 12 }}
+        >
+          {item.vocabulary.map((cardItem, indexCardItem) => (
+            <View key={indexCardItem} style={{ width: "48%" }}>
+              <BinderCard
+                style={{ width: "100%", flex: 1 }}
+                onPress={() => router.push("/vocabulary/vocabulary-flash-card")}
+                showBinderHole
               >
-                <Text variant="bold" size="sm">
-                  Kosakata (어휘)
-                </Text>
-                <View style={{ flex: 1 }}>
-                  <ObviaBold style={{ fontSize: 80 }}>1</ObviaBold>
+                <View
+                  style={{
+                    height: "100%",
+                    paddingLeft: 4,
+                    flex: 1,
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text variant="bold" size="sm">
+                    Kosakata (어휘)
+                  </Text>
+                  <View style={{ flex: 1 }}>
+                    <ObviaBold style={{ fontSize: 80 }}>
+                      {indexCardItem + 1}
+                    </ObviaBold>
+                  </View>
+                  <Text numberOfLines={1} variant="bold" size="sm">
+                    {cardItem.koreanTitle}
+                  </Text>
+                  <Text
+                    numberOfLines={1}
+                    variant="regular"
+                    size="sm"
+                    style={{ textAlign: "center" }}
+                  >
+                    {cardItem.englishTitle}
+                  </Text>
                 </View>
-                <Text variant="bold" size="sm">
-                  혼합 및 측정 관련
-                </Text>
-                <Text variant="regular" size="sm" style={{ marginTop: -4 }}>
-                  Workplace Tools
-                </Text>
-              </View>
-            </BinderCard>
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <BinderCard
-              style={{ width: "100%", flex: 1 }}
-              onPress={() => router.push("/vocabulary/vocabulary-stack")}
-              showBinderHole
-            >
-              <View
-                style={{
-                  height: "100%",
-                  flex: 1,
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text variant="bold" size="sm">
-                  Kosakata (어휘)
-                </Text>
-                <View style={{ flex: 1 }}>
-                  <ObviaBold style={{ fontSize: 80 }}>2</ObviaBold>
-                </View>
-                <Text variant="bold" size="sm">
-                  혼합 및 측정 관련
-                </Text>
-                <Text variant="regular" size="sm" style={{ marginTop: -4 }}>
-                  Workplace Tools
-                </Text>
-              </View>
-            </BinderCard>
-          </View>
+              </BinderCard>
+            </View>
+          ))}
         </View>
       </View>
     </View>
@@ -363,9 +279,9 @@ export const VocabularyScreen: React.FC = () => {
                     />
                   </View>
                 }
-                data={projectsByTab[tab]}
+                data={vocabularies}
                 renderItem={renderProjectItem}
-                keyExtractor={(item) => item.id}
+                // keyExtractor={(item) => item.id}
                 showsVerticalScrollIndicator={false}
                 style={styles.contentContainer}
                 removeClippedSubviews={true}
@@ -376,7 +292,7 @@ export const VocabularyScreen: React.FC = () => {
                   paddingHorizontal: 16,
                   paddingBottom: 20,
                   // Mengisi seluruh tinggi parent ketika tidak ada data
-                  flex: projectsByTab[tab].length === 0 ? 1 : undefined,
+                  flex: vocabularies.length === 0 ? 1 : undefined,
                 }}
               />
             </View>

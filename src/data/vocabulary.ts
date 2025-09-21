@@ -1,9 +1,11 @@
-const vocabulary = [
+export const vocabularies = [
   {
     chapterName: "Mastering Hangeul II",
     koreanChapterName: "한글익히기 II",
     vocabulary: [
       {
+        koreanTitle: "연습 1",
+        englishTitle: "Practice 1",
         korean: [
           "가수",
           "아기",
@@ -28,6 +30,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "연습 2",
+        englishTitle: "Practice 2",
         korean: [
           "치마",
           "코",
@@ -70,6 +74,8 @@ const vocabulary = [
     koreanChapterName: "자기소개",
     vocabulary: [
       {
+        koreanTitle: "나라 이름",
+        englishTitle: "Countries",
         korean: [
           "한국",
           "네팔",
@@ -112,6 +118,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "직업명",
+        englishTitle: "Occupations",
         korean: [
           "학생",
           "선생님",
@@ -156,6 +164,8 @@ const vocabulary = [
     koreanChapterName: "생활용품",
     vocabulary: [
       {
+        koreanTitle: "사무실 물건",
+        englishTitle: "Office Supplies",
         korean: [
           "이것",
           "저것",
@@ -192,6 +202,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "생활용품",
+        englishTitle: "Daily Necessities",
         korean: [
           "휴지",
           "가족사진",
@@ -228,6 +240,8 @@ const vocabulary = [
     koreanChapterName: "위치와 장소",
     vocabulary: [
       {
+        koreanTitle: "가구와 전자제품",
+        englishTitle: "Furniture and Electronics",
         korean: [
           "에어컨",
           "침대",
@@ -258,6 +272,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "장소",
+        englishTitle: "Places",
         korean: [
           "회사",
           "식당",
@@ -312,6 +328,8 @@ const vocabulary = [
     koreanChapterName: "동작과 사물",
     vocabulary: [
       {
+        koreanTitle: "일상 관련 동작 동사",
+        englishTitle: "Everyday Life Verbs",
         korean: [
           "일하다",
           "공부하다",
@@ -338,6 +356,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "일상 관련 명사",
+        englishTitle: "Everyday Life Nouns",
         korean: [
           "밥",
           "먹다",
@@ -380,6 +400,8 @@ const vocabulary = [
     koreanChapterName: "날짜와 요일",
     vocabulary: [
       {
+        koreanTitle: "요일",
+        englishTitle: "Days of the Week",
         korean: [
           "월요일",
           "화요일",
@@ -410,6 +432,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "날짜 관련 어휘",
+        englishTitle: "Dates",
         korean: [
           "월",
           "1월",
@@ -458,6 +482,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "숫자",
+        englishTitle: "Numbers",
         korean: [
           "일",
           "이",
@@ -494,6 +520,8 @@ const vocabulary = [
     koreanChapterName: "하루 일과",
     vocabulary: [
       {
+        koreanTitle: "시간 관련 어휘",
+        englishTitle: "Time",
         korean: [
           "아침",
           "점심",
@@ -522,6 +550,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "일과 관련 어휘",
+        englishTitle: "Daily Routines",
         korean: [
           "일어나다",
           "씻다",
@@ -558,6 +588,8 @@ const vocabulary = [
     koreanChapterName: "계절과 날씨",
     vocabulary: [
       {
+        koreanTitle: "계절",
+        englishTitle: "Seasons",
         korean: [
           "봄",
           "여름",
@@ -580,6 +612,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "날씨",
+        englishTitle: "Weather",
         korean: [
           "맑다",
           "흐리다",
@@ -618,6 +652,8 @@ const vocabulary = [
     koreanChapterName: "가족과 친구",
     vocabulary: [
       {
+        koreanTitle: "가족",
+        englishTitle: "Family",
         korean: [
           "할아버지",
           "할머니",
@@ -654,6 +690,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "외모와 성격",
+        englishTitle: "Looks and Personality",
         korean: [
           "예쁘다",
           "멋있다",
@@ -698,6 +736,8 @@ const vocabulary = [
     koreanChapterName: "음식 주문",
     vocabulary: [
       {
+        koreanTitle: "음식",
+        englishTitle: "Food",
         korean: [
           "비빔밥",
           "김밥",
@@ -738,6 +778,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "숫자와 분류사",
+        englishTitle: "Numbers and Classifiers",
         korean: [
           "하나",
           "둘",
@@ -790,6 +832,8 @@ const vocabulary = [
     koreanChapterName: "물건 구입",
     vocabulary: [
       {
+        koreanTitle: "상태 관련 어휘",
+        englishTitle: "Description Words",
         korean: [
           "크다",
           "작다",
@@ -820,6 +864,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "화폐 및 물품 구매 관련 어휘",
+        englishTitle: "Currency and Purchasing Items",
         korean: [
           "돈",
           "지폐",
@@ -878,6 +924,8 @@ const vocabulary = [
     koreanChapterName: "집안일",
     vocabulary: [
       {
+        koreanTitle: "쓰레기 분리배출 관련 어휘",
+        englishTitle: "Waste Separation and Disposal",
         korean: [
           "일반쓰레기",
           "음식물쓰레기",
@@ -920,6 +968,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "집안일",
+        englishTitle: "Household Chores",
         korean: [
           "세탁기를 돌리다",
           "빨래를 널다",
@@ -990,6 +1040,8 @@ const vocabulary = [
     koreanChapterName: "대중교통",
     vocabulary: [
       {
+        koreanTitle: "교통수단 관련 어휘",
+        englishTitle: "Transportation",
         korean: [
           "타다",
           "마을버스",
@@ -1042,6 +1094,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "이동 관련 어휘",
+        englishTitle: "Movement",
         korean: [
           "타고 가다",
           "타고 오다",
@@ -1086,6 +1140,8 @@ const vocabulary = [
     koreanChapterName: "주말 활동",
     vocabulary: [
       {
+        koreanTitle: "주말 활동",
+        englishTitle: "Weekend Activities",
         korean: [
           "축구하다",
           "헬스를 하다",
@@ -1122,6 +1178,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "상태와 기분",
+        englishTitle: "Feelings and Moods",
         korean: [
           "시간이 있다",
           "시간이 없다",
@@ -1168,6 +1226,8 @@ const vocabulary = [
     koreanChapterName: "길 찾기",
     vocabulary: [
       {
+        koreanTitle: "위치와 방향",
+        englishTitle: "Location and Directions",
         korean: [
           "(의자) 위",
           "(의자) 아래/밑",
@@ -1206,6 +1266,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "이동 동사",
+        englishTitle: "Movement Verbs",
         korean: [
           "내려가다",
           "내려오다",
@@ -1250,6 +1312,8 @@ const vocabulary = [
     koreanChapterName: "옷차림",
     vocabulary: [
       {
+        koreanTitle: "옷과 액세서리",
+        englishTitle: "Clothing and Accessories",
         korean: [
           "입다",
           "티셔츠",
@@ -1290,6 +1354,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "색깔",
+        englishTitle: "Colors",
         korean: [
           "빨간색",
           "주황색",
@@ -1334,6 +1400,8 @@ const vocabulary = [
     koreanChapterName: "집 구하기",
     vocabulary: [
       {
+        koreanTitle: " 주거 형태 관련 어휘",
+        englishTitle: "Types of Housing",
         korean: [
           "아파트",
           "빌라",
@@ -1378,6 +1446,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "주거 환경 관련 어휘",
+        englishTitle: "Residential Environment",
         korean: [
           "넓다",
           "좁다",
@@ -1420,6 +1490,8 @@ const vocabulary = [
     koreanChapterName: "휴가",
     vocabulary: [
       {
+        koreanTitle: "여행 관련 어휘",
+        englishTitle: "Travel",
         korean: [
           "여행을 계획하다",
           "표를 사다",
@@ -1460,6 +1532,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "여행지 관련 어휘",
+        englishTitle: "Travel Destinations",
         korean: [
           "산",
           "호수",
@@ -1510,6 +1584,8 @@ const vocabulary = [
     koreanChapterName: "취미",
     vocabulary: [
       {
+        koreanTitle: "취미 관련 어휘",
+        englishTitle: "Hobbies",
         korean: [
           "독서하다",
           "외국어를 배우다",
@@ -1556,6 +1632,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "운동 관련 어휘",
+        englishTitle: "Sports",
         korean: [
           "하다",
           "축구",
@@ -1600,6 +1678,8 @@ const vocabulary = [
     koreanChapterName: "요리",
     vocabulary: [
       {
+        koreanTitle: "음식의 맛",
+        englishTitle: "Taste of Food",
         korean: [
           "맛이 좋다",
           "맵다",
@@ -1634,6 +1714,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "재료 및 조리법",
+        englishTitle: "Ingredients and Cooking Methods",
         korean: [
           "소고기",
           "돼지고기",
@@ -1694,6 +1776,8 @@ const vocabulary = [
     koreanChapterName: "인터넷과 스마트폰",
     vocabulary: [
       {
+        koreanTitle: "인터넷 관련 어휘",
+        englishTitle: "Internet",
         korean: [
           "인터넷",
           "웹사이트",
@@ -1730,6 +1814,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "스마트폰 관련 어휘",
+        englishTitle: "Smartphones",
         korean: [
           "스마트폰",
           "애플리케이션(앱)",
@@ -1774,6 +1860,8 @@ const vocabulary = [
     koreanChapterName: "병원",
     vocabulary: [
       {
+        koreanTitle: "접수 및 진료 관련 어휘",
+        englishTitle: "Hospital Registration and Consultations",
         korean: [
           "접수를 하다",
           "기다리다",
@@ -1816,6 +1904,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "신체 및 증상 관련 어휘 1",
+        englishTitle: "Body Parts and Symptoms I",
         korean: [
           "머리",
           "귀",
@@ -1884,6 +1974,8 @@ const vocabulary = [
     koreanChapterName: "약국",
     vocabulary: [
       {
+        koreanTitle: "증상 관련 어휘 2",
+        englishTitle: "Symptoms 2",
         korean: [
           "열이 나다/있다",
           "콧물이 나다",
@@ -1922,6 +2014,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "의약품 및 치료법",
+        englishTitle: "Medications and Treatments",
         korean: [
           "연고",
           "파스",
@@ -1964,6 +2058,8 @@ const vocabulary = [
     koreanChapterName: "우체국",
     vocabulary: [
       {
+        koreanTitle: "우편 관련 어휘",
+        englishTitle: "Postal Mail",
         korean: [
           "편지 봉투",
           "보내는 사람/발신인",
@@ -2016,6 +2112,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "우체국 업무 관련 어휘",
+        englishTitle: "The Post Office",
         korean: [
           "부치다",
           "배송하다",
@@ -2046,6 +2144,8 @@ const vocabulary = [
     koreanChapterName: "은행",
     vocabulary: [
       {
+        koreanTitle: "계좌 관련 어휘",
+        englishTitle: " Bank Accounts",
         korean: [
           "번호표를 뽑다",
           "도장",
@@ -2078,6 +2178,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "은행 업무 관련 어휘",
+        englishTitle: " Banking",
         korean: [
           "현금 인출기",
           "입금",
@@ -2126,6 +2228,8 @@ const vocabulary = [
     koreanChapterName: "외국인 근로자 지원기관",
     vocabulary: [
       {
+        koreanTitle: "교육 프로그램 관련 어휘",
+        englishTitle: "Educational Programs",
         korean: [
           "한국어 교육",
           "컴퓨터 교육",
@@ -2172,6 +2276,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "프로그램 이용 방법 관련 어휘",
+        englishTitle: "Program Participation",
         korean: [
           "수업을 듣다",
           "상담을 받다",
@@ -2218,6 +2324,8 @@ const vocabulary = [
     koreanChapterName: "한국의 주거 문화와 음식 문화",
     vocabulary: [
       {
+        koreanTitle: "주거 문화",
+        englishTitle: "Housing Culture",
         korean: [
           "한옥",
           "지붕",
@@ -2260,6 +2368,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "음식 문화",
+        englishTitle: "Food Culture",
         korean: [
           "한식",
           "반찬",
@@ -2320,6 +2430,8 @@ const vocabulary = [
     koreanChapterName: "한국의 기념일",
     vocabulary: [
       {
+        koreanTitle: "국경일과 기념일 관련 어휘",
+        englishTitle: "National Holidays and Commemorative Days",
         korean: [
           "국경일",
           "삼일절",
@@ -2368,6 +2480,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "특별한 날 관련 어휘",
+        englishTitle: "Special Days",
         korean: [
           "돌",
           "환갑/회갑",
@@ -2420,6 +2534,8 @@ const vocabulary = [
     koreanChapterName: "한국의 명절",
     vocabulary: [
       {
+        koreanTitle: "설날 관련 어휘",
+        englishTitle: " Lunar New Year",
         korean: [
           "설날",
           "한복을 입다",
@@ -2456,6 +2572,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "추석 관련 어휘",
+        englishTitle: "Chuseok",
         korean: [
           "추석",
           "고향에 내려가다",
@@ -2498,6 +2616,8 @@ const vocabulary = [
     koreanChapterName: "한국의 예절",
     vocabulary: [
       {
+        koreanTitle: "공공장소에서의 예절 관련 어휘",
+        englishTitle: "Etiquette in Public Places",
         korean: [
           "떠들다",
           "뛰어다니다",
@@ -2540,6 +2660,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "예의에 어긋난 행동",
+        englishTitle: "Disrespectful Actions",
         korean: [
           "손을 흔들다",
           "반말을 하다",
@@ -2582,6 +2704,8 @@ const vocabulary = [
     koreanChapterName: "한국의 대중문화",
     vocabulary: [
       {
+        koreanTitle: "경기 관람 관련 어휘",
+        englishTitle: " Watching Sports",
         korean: [
           "경기장",
           "관람하다",
@@ -2614,6 +2738,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "한류 관련 어휘",
+        englishTitle: "Hallyu (the Korean Wave)",
         korean: [
           "K-팝",
           "K-댄스",
@@ -2653,11 +2779,14 @@ const vocabulary = [
       },
     ],
   },
+  // buku 2
   {
     chapterName: "Attire and Work Attitude",
     koreanChapterName: "복장과 근무 태도",
     vocabulary: [
       {
+        koreanTitle: "복장 관련 어휘",
+        englishTitle: " Attire",
         korean: [
           "작업복",
           "유니폼",
@@ -2702,6 +2831,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "태도 관련 어휘",
+        englishTitle: "Attitude",
         korean: [
           "예의가 있다",
           "예의가 없다",
@@ -2760,6 +2891,8 @@ const vocabulary = [
     koreanChapterName: "회사 시설 이용",
     vocabulary: [
       {
+        koreanTitle: "기숙사 관련 어휘",
+        englishTitle: "Dormitory",
         korean: [
           "방",
           "복도",
@@ -2794,6 +2927,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "구내식당 관련 어휘",
+        englishTitle: "Cafeteria",
         korean: [
           "구내식당",
           "배식대",
@@ -2838,6 +2973,8 @@ const vocabulary = [
     koreanChapterName: "동료와의 관계",
     vocabulary: [
       {
+        koreanTitle: "직장의 분위기 관련 어휘",
+        englishTitle: "Workplace Atmosphere",
         korean: [
           "동료",
           "상사",
@@ -2882,6 +3019,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "동료와의 관계 관련 어휘",
+        englishTitle: "Colleague Relationships",
         korean: [
           "믿다",
           "의지하다",
@@ -2936,6 +3075,8 @@ const vocabulary = [
     koreanChapterName: "성희롱 및 성추행 예방",
     vocabulary: [
       {
+        koreanTitle: "성희롱 관련 어휘",
+        englishTitle: "Sexual Harassment",
         korean: [
           "불쾌감",
           "수치심",
@@ -2982,6 +3123,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "성희롱 예방과 대처 방법 관련 어휘",
+        englishTitle: "Prevention and Handling of Sexual Harassment",
         korean: [
           "성 인지 감수성",
           "양성평등",
@@ -3034,6 +3177,8 @@ const vocabulary = [
     koreanChapterName: "작업장 관리",
     vocabulary: [
       {
+        koreanTitle: "작업장 환경 관리 관련 어휘",
+        englishTitle: "Workplace Environment Maintenance",
         korean: [
           "더럽다",
           "엉망이다",
@@ -3074,6 +3219,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "자재 창고 관리 관련 어휘",
+        englishTitle: "Warehouse Management",
         korean: [
           "창고",
           "물류 창고",
@@ -3122,6 +3269,8 @@ const vocabulary = [
     koreanChapterName: "출하 관리",
     vocabulary: [
       {
+        koreanTitle: "포장 및 적재 작업 관련 어휘",
+        englishTitle: "Packaging and Loading Work",
         korean: [
           "싸다/포장하다",
           "담다/넣다",
@@ -3174,6 +3323,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "출하 관리 관련 어휘",
+        englishTitle: "Shipment Management",
         korean: [
           "입고하다",
           "출고하다",
@@ -3228,6 +3379,8 @@ const vocabulary = [
     koreanChapterName: "기계 가공",
     vocabulary: [
       {
+        koreanTitle: "기계 작동 관련 어휘",
+        englishTitle: "Operating Machines",
         korean: [
           "작동하다",
           "멈추다",
@@ -3284,6 +3437,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "기구와 용도 관련 어휘",
+        englishTitle: "Tools and their Uses",
         korean: [
           "공작물을 갈다",
           "도려내다",
@@ -3336,6 +3491,8 @@ const vocabulary = [
     koreanChapterName: "기계 조립",
     vocabulary: [
       {
+        koreanTitle: "조립 공구와 부품",
+        englishTitle: "Assembly Tools and Parts",
         korean: [
           "플라이어",
           "롱 노즈 플라이어",
@@ -3392,6 +3549,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "조립 및 분해 작업 관련 어휘",
+        englishTitle: "Assembly and Disassembly Process",
         korean: [
           "일자 드라이버",
           "십자드라이버",
@@ -3446,6 +3605,8 @@ const vocabulary = [
     koreanChapterName: "금속 가공",
     vocabulary: [
       {
+        koreanTitle: "작업용 공구 관련 어휘",
+        englishTitle: "Workplace Tools",
         korean: [
           "망치",
           "전기 드릴",
@@ -3484,6 +3645,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "절단 및 용접 관련 어휘",
+        englishTitle: "Cutting and Welding",
         korean: [
           "절단하다",
           "판금 가위",
@@ -3542,6 +3705,8 @@ const vocabulary = [
     koreanChapterName: "플라스틱 고무 성형",
     vocabulary: [
       {
+        koreanTitle: "혼합 및 측정 관련 어휘",
+        englishTitle: "Mixing and Measuring",
         korean: [
           "혼합하다",
           "원재료",
@@ -3580,6 +3745,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "제품 불량 관련 어휘",
+        englishTitle: "Product Defects",
         korean: [
           "검사하다",
           "불량품이 나오다",
@@ -3632,6 +3799,8 @@ const vocabulary = [
     koreanChapterName: "섬유 제조",
     vocabulary: [
       {
+        koreanTitle: "원사 보관 및 관리 관련 어휘",
+        englishTitle: "Yarn Storage and Management",
         korean: [
           "원사",
           "습도",
@@ -3678,6 +3847,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "염색 가공 관련 어휘",
+        englishTitle: "Dyeing Process",
         korean: [
           "천연 섬유 ",
           "면",
@@ -3742,6 +3913,8 @@ const vocabulary = [
     koreanChapterName: "가구 제작",
     vocabulary: [
       {
+        koreanTitle: "가구 제작 준비 관련 어휘",
+        englishTitle: " Furniture Making Preparations",
         korean: [
           "원목/목재",
           "길이",
@@ -3776,6 +3949,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "가구 연마 및 도장 작업 관련 어휘",
+        englishTitle: "Furniture Sanding and Painting",
         korean: [
           "분무기",
           "물을 뿌리다",
@@ -3832,6 +4007,8 @@ const vocabulary = [
     koreanChapterName: "건축 시공",
     vocabulary: [
       {
+        koreanTitle: "철근 결속 관련 어휘",
+        englishTitle: " Rebar Reinforcement",
         korean: [
           "철근",
           "배근하다",
@@ -3884,6 +4061,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "거푸집 설치 관련 어휘",
+        englishTitle: "Formwork Assembly",
         korean: [
           "건물을 짓다",
           "거푸집",
@@ -3922,6 +4101,8 @@ const vocabulary = [
     koreanChapterName: "토목 시공",
     vocabulary: [
       {
+        koreanTitle: "준설 관련 어휘",
+        englishTitle: " Dredging",
         korean: [
           "흙/토사",
           "침전물",
@@ -3978,6 +4159,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "상하수도 시공 관련 어휘",
+        englishTitle: "Water Supply and Sewage Systems Construction",
         korean: [
           "땅을 파다(터파기)",
           "관을 배치하다",
@@ -4024,6 +4207,8 @@ const vocabulary = [
     koreanChapterName: "농작물 재배",
     vocabulary: [
       {
+        koreanTitle: "전작 관련 어휘",
+        englishTitle: "Field Crops",
         korean: [
           "논",
           "비닐하우스",
@@ -4106,6 +4291,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "과수 재배 관련 어휘",
+        englishTitle: " Orchard Cultivation",
         korean: [
           "과수원",
           "봉지를 씌우다",
@@ -4168,6 +4355,8 @@ const vocabulary = [
     koreanChapterName: "사육 관리",
     vocabulary: [
       {
+        koreanTitle: "사료 급여 관련 어휘",
+        englishTitle: "Feeding Livestock",
         korean: [
           "소",
           "돼지",
@@ -4216,6 +4405,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "축사 청소 관련 어휘",
+        englishTitle: "Barn Cleaning",
         korean: [
           "소 농장/소 축사",
           "돼지 농장/돼지 축사",
@@ -4244,6 +4435,8 @@ const vocabulary = [
     koreanChapterName: "연안 어업과 양식",
     vocabulary: [
       {
+        koreanTitle: "어업 도구와 어업 활동 관련 어휘 ",
+        englishTitle: "Fishery Tools and Activities",
         korean: [
           "어업 도구",
           "그물",
@@ -4294,6 +4487,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "양식업 관련 어휘",
+        englishTitle: "Aquaculture",
         korean: [
           "양식장",
           "수조",
@@ -4342,6 +4537,8 @@ const vocabulary = [
     koreanChapterName: "선체 건조",
     vocabulary: [
       {
+        koreanTitle: "선박 도장 관련 어휘",
+        englishTitle: "Ship Painting",
         korean: [
           "조타실",
           "선원실",
@@ -4394,6 +4591,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "강관 비계 설치 관련 어휘",
+        englishTitle: "Steel Pipe Scaffold Installation",
         korean: [
           "장선",
           "띠장",
@@ -4452,6 +4651,8 @@ const vocabulary = [
     koreanChapterName: "광물 자원 개발 생산",
     vocabulary: [
       {
+        koreanTitle: "갱도 시설 관련 어휘",
+        englishTitle: "Tunnel Facilities",
         korean: [
           "갱도",
           "갱구",
@@ -4490,6 +4691,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "채광 및 광석 운반 작업 관련 어휘",
+        englishTitle: "Mining and Ore Transport Operations",
         korean: [
           "바위에 구멍을 뚫다",
           "폭약을 설치하다",
@@ -4532,6 +4735,8 @@ const vocabulary = [
     koreanChapterName: "산림 자원 조성",
     vocabulary: [
       {
+        koreanTitle: "굴취 및 분 감기 관련 어휘",
+        englishTitle: "Trenching and Root Ball Wrapping",
         korean: [
           "나무",
           "잎",
@@ -4576,6 +4781,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "벌목 작업 관련 어휘",
+        englishTitle: "Logging Work",
         korean: [
           "벌목",
           "조재",
@@ -4614,6 +4821,8 @@ const vocabulary = [
     koreanChapterName: "숙박 서비스",
     vocabulary: [
       {
+        koreanTitle: "호텔 비품실 물품 관련 어휘",
+        englishTitle: "Hotel Supplies Room Items",
         korean: [
           "비품실/리넨실",
           "수건",
@@ -4670,6 +4879,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "객실 정비 관련 어휘",
+        englishTitle: " Room Cleaning",
         korean: [
           "객실",
           "스위치를 켜다/끄다",
@@ -4724,6 +4935,8 @@ const vocabulary = [
     koreanChapterName: "음식 조리",
     vocabulary: [
       {
+        koreanTitle: "식재료 관리 관련 어휘",
+        englishTitle: "Managing Ingredients",
         korean: [
           "주문서를 확인하다",
           "검수하다",
@@ -4778,6 +4991,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "음식 안전 관리 관련 어휘",
+        englishTitle: "Food Safety Management",
         korean: [
           "곡류",
           "해산물",
@@ -4840,6 +5055,8 @@ const vocabulary = [
     koreanChapterName: "산업 안전 및 보건 표지",
     vocabulary: [
       {
+        koreanTitle: "경고 표지",
+        englishTitle: "Warning Signs",
         korean: [
           "일반 경고표지",
           "경고: 방사능 물질 또는 이온화 방사선",
@@ -4884,6 +5101,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "금지 표지",
+        englishTitle: "Prohibition Signs 1",
         korean: [
           "일반적인 금지표지",
           "금연(담배를 피우지 마시오)",
@@ -4928,6 +5147,8 @@ const vocabulary = [
     koreanChapterName: "산업 안전 및 보건 수칙",
     vocabulary: [
       {
+        koreanTitle: "안전 및 보건 수칙",
+        englishTitle: "Safety and Health Preservation Regulations",
         korean: [
           "흡연이나 음식을 섭취를 하지 않는다",
           "환기 장치를 켜다",
@@ -4956,6 +5177,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "산업 재해 예방을 위한 준수 사항",
+        englishTitle: "Terms of Compliance for Industrial Accident Prevention",
         korean: [
           "정비, 수리, 교체 작업",
           "안전보건교육 실시",
@@ -5010,6 +5233,8 @@ const vocabulary = [
     koreanChapterName: "산업 안전 및 위생 장비",
     vocabulary: [
       {
+        koreanTitle: "안전 장비",
+        englishTitle: "Safety Equipment",
         korean: [
           "공통 안전 장비",
           "안전모",
@@ -5056,6 +5281,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "안전ㆍ위생 장비",
+        englishTitle: "Safety and Hygiene Equipment",
         korean: [
           "특화 안전 장비",
           "무릎보호대",
@@ -5134,6 +5361,8 @@ const vocabulary = [
     koreanChapterName: "산업 재해 및 응급 처치",
     vocabulary: [
       {
+        koreanTitle: "소방 장비 표지",
+        englishTitle: "Fire Safety Equipment Signs",
         korean: [
           "소방 장비 표시",
           "소화기",
@@ -5192,6 +5421,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "응급 상황 대처 요령",
+        englishTitle: "Emergency Response Guidelines",
         korean: [
           "사고 대응 요령",
           "사고 발생",
@@ -5254,6 +5485,8 @@ const vocabulary = [
     koreanChapterName: "고용허가제",
     vocabulary: [
       {
+        koreanTitle: "고용허가제의 업종",
+        englishTitle: "Employment Permit System Industries",
         korean: [
           "제조업",
           "건설업",
@@ -5286,6 +5519,9 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "고용허가제 취업 절차",
+        englishTitle:
+          "Procedures to Gain Employment through the Employment Permit System",
         korean: [
           "1차 평가",
           "한국어능력시험(EPS-TOPIK)",
@@ -5324,6 +5560,8 @@ const vocabulary = [
     koreanChapterName: "근로기준법",
     vocabulary: [
       {
+        koreanTitle: "근로 조건 관련 어휘",
+        englishTitle: "Working Conditions",
         korean: [
           "근로 조건",
           "근로 계약 기간",
@@ -5366,6 +5604,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "급여 명세서 관련 어휘",
+        englishTitle: "Pay Stubs",
         korean: [
           "지급 내역",
           "지급액",
@@ -5432,6 +5672,8 @@ const vocabulary = [
     koreanChapterName: "출입국관리법",
     vocabulary: [
       {
+        koreanTitle: "외국인 등록 관련 어휘",
+        englishTitle: "Foreigner Registration",
         korean: [
           "외국인 등록에 필요한 서류",
           "통합신청서",
@@ -5480,6 +5722,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "체류 기간 연장 관련 어휘",
+        englishTitle: "Extension of Stay",
         korean: [
           "체류하다",
           "체류 기간",
@@ -5532,6 +5776,8 @@ const vocabulary = [
     koreanChapterName: "근로자 보험",
     vocabulary: [
       {
+        koreanTitle: "보험 및 보험금 관련 어휘",
+        englishTitle: " Insurance and Insurance Benefits",
         korean: [
           "보험에 가입하다",
           "보험료를 내다/납입하다",
@@ -5576,6 +5822,8 @@ const vocabulary = [
         ],
       },
       {
+        koreanTitle: "외국인 근로자 전용 보험 관련 어휘",
+        englishTitle: "Insurance Exclusive to Foreign Workers",
         korean: [
           "질병",
           "상해",
