@@ -1,4 +1,4 @@
-import { QuizListScreen } from "@screens/quiz/QuizListScreen/QuizListScreen";
+import { QuizListScreen } from "@/screens/quiz-list-screen/QuizListScreen";
 
 export default function Quiz() {
   return <QuizListScreen />;

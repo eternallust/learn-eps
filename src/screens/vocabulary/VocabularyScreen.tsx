@@ -134,7 +134,17 @@ export const VocabularyScreen: React.FC = () => {
             <View key={indexCardItem} style={{ width: "48%" }}>
               <BinderCard
                 style={{ width: "100%", flex: 1 }}
-                onPress={() => router.push("/vocabulary/vocabulary-flash-card")}
+                onPress={() => router.push({
+                  pathname: "/vocabulary/vocabulary-flash-card",
+                  params: {
+                    chapter: index,
+                    vocabularyIndex: indexCardItem,
+                    chapterName: item.chapterName,
+                    koreanChapterName: item.koreanChapterName,
+                    vocabularyTitle: cardItem.koreanTitle,
+                    vocabularyEnglishTitle: cardItem.englishTitle
+                  }
+                })}
                 showBinderHole
               >
                 <View

@@ -1,5 +1,5 @@
-import { Button } from "@components/ui/Button/Button";
 import { Header, Text } from "@components/ui";
+import { Button } from "@components/ui/Button/Button";
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
@@ -12,7 +12,9 @@ export const QuizListScreen: React.FC = () => {
 
   const BackButton = () => (
     <TouchableOpacity onPress={() => router.back()}>
-      <Text variant="regular" size="lg">← Kembali</Text>
+      <Text variant="regular" size="lg">
+        ← Kembali
+      </Text>
     </TouchableOpacity>
   );
 
@@ -21,7 +23,9 @@ export const QuizListScreen: React.FC = () => {
       <Header title="Quiz EPS-TOPIK" leftComponent={<BackButton />} />
       <ScrollView style={styles.content}>
         <View style={styles.section}>
-          <Text variant="bold" size="xl" style={styles.title}>Pilih Quiz</Text>
+          <Text variant="bold" size="xl" style={styles.title}>
+            Pilih Quiz
+          </Text>
           <Text variant="regular" size="md" style={styles.subtitle}>
             Uji kemampuan bahasa Korea Anda dengan berbagai tingkat kesulitan.
           </Text>

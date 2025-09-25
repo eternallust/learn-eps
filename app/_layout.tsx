@@ -59,6 +59,10 @@ export default function RootLayout() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
+              name="simulation/quiz/index"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
               name="grammar/index"
               options={{ headerShown: false }}
             />
