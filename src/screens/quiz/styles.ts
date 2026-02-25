@@ -1,11 +1,239 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "@constants/theme";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
   },
+  gradientBackground: {
+    flex: 1,
+  },
+  headerContainer: {
+    backgroundColor: "#192a56",
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+  },
+  headerContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerLeft: {
+    flex: 1,
+    alignItems: "flex-start",
+  },
+  headerCenter: {
+    flex: 2,
+    alignItems: "center",
+  },
+  headerRight: {
+    flex: 1,
+    alignItems: "flex-end",
+  },
+  headerTitle: {
+    color: "white",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  backButton: {
+    padding: 8,
+  },
+  backIcon: {
+    color: "#6B21A8",
+    fontSize: 20,
+    fontWeight: "600",
+  },
+  // headerTitle: {
+  //   fontSize: 18,
+  //   fontWeight: "600",
+  //   color: "#1F2937",
+  // },
+  timerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    backgroundColor: "#FEF3C7",
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 20,
+    marginBottom: 12,
+    marginTop: 12,
+    width: 70
+  },
+  timerIcon: {
+    color: "#F59E0B",
+    fontSize: 16,
+  },
+  timerText: {
+    color: "#78716C",
+    fontSize: 14,
+    fontWeight: "600",
+  },
+  timerWarning: {
+    color: "#DC2626",
+  },
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  questionCounter: {
+    color: "#192a56",
+    fontSize: 14,
+    fontWeight: "500",
+    marginVertical: 12,
+  },
+  progressBarContainer: {
+    height: 8,
+    backgroundColor: "#E5E7EB",
+    borderRadius: 4,
+    marginBottom: 20,
+    overflow: "hidden",
+  },
+  progressBarFill: {
+    height: "100%",
+    borderRadius: 4,
+  },
+  questionText: {
+    color: "#1F2937",
+    fontSize: 18,
+    fontWeight: "bold",
+    lineHeight: 26,
+    marginBottom: 24,
+  },
+  questionImage: {
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
+    marginBottom: 24,
+    borderRadius: 12,
+  },
+  optionsContainer: {
+    gap: 12,
+  },
+  optionButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1.5,
+    borderColor: "#E5E7EB",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  selectedOption: {
+    backgroundColor: "#9333EA",
+    borderColor: "#9333EA",
+  },
+  optionText: {
+    color: "#1F2937",
+    fontSize: 16,
+    fontWeight: "500",
+    flex: 1,
+  },
+  selectedOptionText: {
+    color: "#FFFFFF",
+  },
+  checkIcon: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  checkIconText: {
+    color: "#9333EA",
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  radioCircle: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: "#D1D5DB",
+    backgroundColor: "transparent",
+  },
+  bottomContainer: {
+    padding: 20,
+    paddingBottom: 32,
+  },
+  nextButton: {
+    backgroundColor: "#1F2937",
+    borderRadius: 12,
+    padding: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: 8,
+  },
+  disabledButton: {
+    backgroundColor: "#9CA3AF",
+  },
+  nextButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  // Result screen styles
+  resultContainer: {
+    flex: 1,
+    padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  resultTitle: {
+    marginBottom: 16,
+    color: "#9333EA",
+    fontSize: 24,
+  },
+  resultScore: {
+    marginBottom: 24,
+    color: "#6B21A8",
+    fontSize: 20,
+  },
+  resultText: {
+    textAlign: "center",
+    marginBottom: 32,
+    color: "#4B5563",
+    lineHeight: 24,
+  },
+  restartButton: {
+    backgroundColor: "#9333EA",
+    borderRadius: 12,
+    padding: 16,
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 16,
+  },
+  restartButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "600",
+  },
+  homeButton: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 12,
+    padding: 16,
+    alignItems: "center",
+    width: "100%",
+    borderWidth: 1.5,
+    borderColor: "#E5E7EB",
+  },
+  homeButtonText: {
+    color: "#1F2937",
+    fontWeight: "600",
+  },
+  // Legacy styles (keeping for compatibility)
   gradientHeader: {
     paddingTop: 16,
     paddingBottom: 16,
@@ -15,30 +243,11 @@ export const styles = StyleSheet.create({
   transparentHeader: {
     backgroundColor: "transparent",
   },
-  headerTitle: {
-    color: "#FFFFFF",
-  },
   quizHeaderContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 8,
-  },
-  questionCounter: {
-    color: "#FFFFFF",
-  },
-  timerText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  timerContainer: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    alignItems: "center",
-    justifyContent: "center",
   },
   progressContainer: {
     height: 6,
@@ -54,51 +263,9 @@ export const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
-    marginHorizontal: 16,
-    marginTop: -20,
     marginBottom: 16,
-    elevation: 4,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6,
-  },
-  questionText: {
-    marginBottom: 16,
-    color: COLORS.text,
-    textAlign: "center",
-    fontSize: 18,
-  },
-  questionImage: {
-    width: "100%",
-    height: 200,
-    resizeMode: "contain",
-    marginBottom: 16,
-    borderRadius: 8,
-  },
-  optionsContainer: {
-    marginHorizontal: 16,
-    marginBottom: 16,
-  },
-  optionButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: 16,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 8,
-    marginBottom: 12,
     borderWidth: 1,
-    borderColor: "#E0E0E0",
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-  },
-  selectedOption: {
-    backgroundColor: "#4CAF50",
-    borderColor: "#4CAF50",
+    borderColor: "#E5E7EB",
   },
   correctOption: {
     backgroundColor: "#E8F5E9",
@@ -128,82 +295,5 @@ export const styles = StyleSheet.create({
   },
   optionIndexText: {
     color: "#FFFFFF",
-  },
-  optionText: {
-    flex: 1,
-    color: COLORS.text,
-    fontSize: 16,
-  },
-  selectedOptionText: {
-    color: "#FFFFFF",
-  },
-  checkIcon: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    backgroundColor: "#FFFFFF",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  bottomContainer: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: "#E0E0E0",
-    backgroundColor: COLORS.surface,
-  },
-  nextButton: {
-    backgroundColor: "#1e3c72",
-    borderRadius: 8,
-    padding: 16,
-    alignItems: "center",
-  },
-  disabledButton: {
-    backgroundColor: "#CCCCCC",
-  },
-  nextButtonText: {
-    color: "#FFFFFF",
-  },
-  resultContainer: {
-    flex: 1,
-    padding: 24,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  resultTitle: {
-    marginBottom: 16,
-    color: COLORS.primary,
-  },
-  resultScore: {
-    marginBottom: 24,
-    color: COLORS.primarydark,
-  },
-  resultText: {
-    textAlign: "center",
-    marginBottom: 32,
-    color: COLORS.text,
-    lineHeight: 24,
-  },
-  restartButton: {
-    backgroundColor: COLORS.primary,
-    borderRadius: 8,
-    padding: 16,
-    alignItems: "center",
-    width: "100%",
-    marginBottom: 16,
-  },
-  restartButtonText: {
-    color: "#FFFFFF",
-  },
-  homeButton: {
-    backgroundColor: "#F5F5F5",
-    borderRadius: 8,
-    padding: 16,
-    alignItems: "center",
-    width: "100%",
-    borderWidth: 1,
-    borderColor: "#E0E0E0",
-  },
-  homeButtonText: {
-    color: COLORS.text,
   },
 });

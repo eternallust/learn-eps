@@ -1,5 +1,5 @@
-import { Header, Text } from "@components/ui";
-import { COLORS } from "@constants/theme";
+import { Text } from "@components/ui";
+import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { styles } from "./styles";
+
 
 interface QuizItem {
   id: number;
@@ -28,8 +29,8 @@ interface QuizScreenProps {
 
 export default function QuizScreen({
   quizData,
-  title = "Simulasi Quiz",
-  timePerQuestion = 30,
+  title = "Aptitude Test",
+  timePerQuestion = 120,
 }: QuizScreenProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
@@ -48,7 +49,13 @@ export default function QuizScreen({
   }, [timeLeft, quizFinished]);
 
   const currentQuestion = quizData[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+
+  // Format timer sebagai mm:ss
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
 
   const handleOptionSelect = (optionIndex: number) => {
     setSelectedOption(optionIndex);
@@ -80,21 +87,15 @@ export default function QuizScreen({
     setQuizFinished(false);
   };
 
-  const BackButton = () => (
-    <TouchableOpacity onPress={() => router.back()}>
-      <Text variant="regular" size="lg" style={{ color: "#FFFFFF" }}>
-        ← Kembali
-      </Text>
-    </TouchableOpacity>
-  );
-
   // Tampilan hasil akhir
   if (quizFinished) {
     return (
-      <View style={styles.container}>
-        <View style={styles.gradientHeader}>
-          <Header title="Hasil Simulasi" />
-        </View>
+      <LinearGradient
+        colors={["#FDF2F8", "#EDE9FE", "#DBEAFE"]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientBackground}
+      >
         <View style={styles.resultContainer}>
           <Text variant="bold" size="xxl" style={styles.resultTitle}>
             Simulasi Selesai!
@@ -126,99 +127,138 @@ export default function QuizScreen({
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </LinearGradient>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.gradientHeader}>
-        <Header title={title} leftComponent={<BackButton />} />
-
-        {/* Header dengan Progress Bar dan Timer */}
-        <View style={styles.quizHeaderContainer}>
-          <Text variant="medium" size="md" style={styles.questionCounter}>
-            Question {currentQuestionIndex + 1} of {quizData.length}
+    <LinearGradient
+      colors={["#EFF6FF", "#FFFFFF"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.gradientBackground}
+    >
+      {/* Header */}
+      {/* <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+          <Text style={styles.backIcon}>{"<"}</Text>
+        </TouchableOpacity>
+        
+        <Text style={styles.headerTitle}>{title}</Text>
+        
+        <View style={styles.timerContainer}>
+          <Text style={styles.timerIcon}>⏱</Text>
+          <Text
+            style={[
+              styles.timerText,
+              timeLeft <= 30 && styles.timerWarning,
+            ]}
+          >
+            {formatTime(timeLeft)}
           </Text>
-
-          <View style={styles.timerContainer}>
-            <Text
-              variant="medium"
-              size="md"
-              style={[
-                styles.timerText,
-                { color: timeLeft <= 10 ? COLORS.error : "#FFFFFF" },
-              ]}
-            >
-              {timeLeft}
+        </View>
+      </View> */}
+      <View style={styles.headerContainer}>
+        <View style={styles.headerContent}>
+          <View style={styles.headerLeft}>
+            {/* <BackButton /> */}
+          </View>
+          <View style={styles.headerCenter}>
+            <Text variant="bold" size="xl" style={{ color: "white" }}>
+              Kosakata
             </Text>
+          </View>
+          <View style={styles.headerRight}>
+           
+          </View>
+        </View>
+      </View>
+      <View style={{ paddingHorizontal: 20 }}>
+        <View style={styles.headerContent}>
+          <Text style={styles.questionCounter}>
+            Questions {currentQuestionIndex + 1} of {quizData.length}
+          </Text>
+          <View style={styles.timerContainer}>
+              <Text style={styles.timerIcon}>⏱</Text>
+              <Text
+                style={[
+                  styles.timerText,
+                  timeLeft <= 30 && styles.timerWarning,
+                ]}
+              >
+                {formatTime(timeLeft)}
+              </Text>
+            </View>
+          </View>
+          
+          {/* Progress Bar */}
+          <View style={styles.progressBarContainer}>
+            <LinearGradient
+              colors={["#00458e","#000328",]}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              style={[
+                styles.progressBarFill,
+                { width: `${((currentQuestionIndex + 1) / quizData.length) * 100}%` }
+              ]}
+            />
           </View>
         </View>
 
-        {/* Progress Bar */}
-        <View style={styles.progressContainer}>
-          <View style={[styles.progressBar, { width: `${progress}%` }]} />
-        </View>
-      </View>
 
-      <ScrollView>
-        {/* Pertanyaan */}
+      <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
+        {/* Question Counter */}
+       
+        {/* Question Text */}
         <View style={styles.questionContainer}>
-          <Text variant="bold" size="lg" style={styles.questionText}>
+          <Text style={styles.questionText}>
             {currentQuestion.question}
           </Text>
 
           {/* Gambar jika tipe soal adalah gambar */}
-          {currentQuestion.type === "image" && (
-            <View>
-              <Image
-                source={currentQuestion.imageSource}
-                style={styles.questionImage}
-                resizeMode="contain"
-              />
-            </View>
+          {currentQuestion.type === "image" && currentQuestion.imageSource && (
+            <Image
+              source={currentQuestion.imageSource}
+              style={styles.questionImage}
+              resizeMode="contain"
+            />
           )}
         </View>
+       
 
-        {/* Pilihan Jawaban dalam grid 2x2 */}
-        <View>
-          <Text variant="medium" size="md">
-            Pilihan Jawaban:
-          </Text>
-          <View style={styles.optionsContainer}>
-            {currentQuestion.options.map((option, index) => (
-              <TouchableOpacity
-                key={index}
+        {/* Pilihan Jawaban */}
+        <View style={styles.optionsContainer}>
+          {currentQuestion.options.map((option, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[
+                styles.optionButton,
+                selectedOption === index && styles.selectedOption,
+              ]}
+              onPress={() => handleOptionSelect(index)}
+              activeOpacity={0.7}
+            >
+              <Text
                 style={[
-                  styles.optionButton,
-                  selectedOption === index && styles.selectedOption,
+                  styles.optionText,
+                  selectedOption === index && styles.selectedOptionText,
                 ]}
-                onPress={() => handleOptionSelect(index)}
               >
-                <Text
-                  variant="medium"
-                  size="md"
-                  style={[
-                    styles.optionText,
-                    selectedOption === index && styles.selectedOptionText,
-                  ]}
-                >
-                  {option}
-                </Text>
-                {selectedOption === index && (
-                  <View style={styles.checkIcon}>
-                    <Text style={{ color: "#4CAF50", fontWeight: "bold" }}>
-                      ✓
-                    </Text>
-                  </View>
-                )}
-              </TouchableOpacity>
-            ))}
-          </View>
+                {option}
+              </Text>
+              {selectedOption === index ? (
+                <View style={styles.checkIcon}>
+                  <Text style={styles.checkIconText}>✓</Text>
+                </View>
+              ) : (
+                <View style={styles.radioCircle} />
+              )}
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
 
-      {/* Tombol Selanjutnya */}
+      {/* Tombol Next */}
       <View style={styles.bottomContainer}>
         <TouchableOpacity
           style={[
@@ -227,14 +267,14 @@ export default function QuizScreen({
           ]}
           onPress={handleNextQuestion}
           disabled={selectedOption === null}
+          activeOpacity={0.8}
         >
-          <Text variant="medium" size="md" style={styles.nextButtonText}>
-            {currentQuestionIndex === quizData.length - 1
-              ? "Selesai"
-              : "Selanjutnya"}
+          <Text style={styles.nextButtonText}>
+            {currentQuestionIndex === quizData.length - 1 ? "Finish" : "Next"}
           </Text>
+          <Text style={styles.nextButtonText}>→</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 }
