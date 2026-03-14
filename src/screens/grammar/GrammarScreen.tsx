@@ -1,7 +1,9 @@
-import { Header, Text } from "@components/ui";
+import { Text } from "@components/ui";
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
+
+
 import { styles } from "./styles";
 
 export default function GrammarScreen() {
@@ -15,26 +17,23 @@ export default function GrammarScreen() {
 
   return (
     <View style={styles.container}>
-      <Header title="Grammar" leftComponent={<BackButton />} />
-      <ScrollView style={styles.content}>
-        <View style={styles.section}>
-          <Text variant="bold" size="xl" style={styles.title}>
-            Belajar Grammar Korea
-          </Text>
-          <Text variant="regular" size="md" style={styles.subtitle}>
-            Pelajari tata bahasa Korea untuk persiapan EPS-TOPIK.
-          </Text>
-
-          <View style={styles.infoBox}>
-            <Text variant="medium" size="md" style={styles.infoTitle}>
-              Halaman dalam pengembangan
-            </Text>
-            <Text variant="regular" size="sm" style={styles.infoText}>
-              Fitur pembelajaran grammar sedang dalam tahap pengembangan.
-              Silakan kembali lagi nanti.
+      <View style={styles.headerContainer}>
+        <View style={styles.headerContent}>
+          <View style={styles.headerLeft}>
+           
+          </View>
+          <View style={styles.headerCenter}>
+            <Text variant="bold" size="xl" style={{ color: "white" }}>
+            Grammar Lesson
             </Text>
           </View>
+          <View style={styles.headerRight}>
+         
+          </View>
         </View>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+  
       </ScrollView>
     </View>
   );

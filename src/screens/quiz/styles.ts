@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    backgroundColor: "#192a56",
-    paddingVertical: 20,
+    paddingTop: 20,
     paddingHorizontal: 16,
   },
   headerContent: {
@@ -186,11 +185,81 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
   },
   // Result screen styles
+  resultBackground: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  confettiOverlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 10,
+  },
+  confettiAnimation: {
+    width: "100%",
+    height: "100%",
+  },
   resultContainer: {
     flex: 1,
     padding: 24,
     alignItems: "center",
     justifyContent: "center",
+  },
+  lottieContainer: {
+    width: 280,
+    height: 280,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 24,
+  },
+  lottieAnimation: {
+    width: 400,
+    height: 400,
+  },
+  pointsText: {
+    fontSize: 36,
+    color: "#4338CA",
+    marginBottom: 16,
+  },
+  congratsTitle: {
+    color: "#1F2937",
+    textAlign: "center",
+    marginBottom: 12,
+  },
+  congratsSubtitle: {
+    textAlign: "center",
+    color: "#9CA3AF",
+    lineHeight: 22,
+    marginBottom: 40,
+  },
+  seePointsButton: {
+    backgroundColor: "#4338CA",
+    borderRadius: 30,
+    paddingVertical: 16,
+    paddingHorizontal: 80,
+    alignItems: "center",
+    shadowColor: "#4338CA",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  seePointsButtonText: {
+    color: "#FFFFFF",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  tryAgainButton: {
+    marginTop: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+  },
+  tryAgainButtonText: {
+    color: "#4338CA",
+    fontWeight: "600",
+    fontSize: 14,
   },
   resultTitle: {
     marginBottom: 16,
@@ -232,6 +301,59 @@ export const styles = StyleSheet.create({
   homeButtonText: {
     color: "#1F2937",
     fontWeight: "600",
+  },
+  // Listening & Audio Player styles
+  listeningContainer: {
+    marginTop: 16,
+  },
+  listeningText: {
+    color: "#4B5563",
+    fontSize: 14,
+    lineHeight: 22,
+    marginBottom: 16,
+    fontStyle: "italic",
+  },
+  audioPlayerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F3F4F6",
+    borderRadius: 12,
+    padding: 12,
+    gap: 12,
+  },
+  playPauseButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#4338CA",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#4338CA",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  playPauseIcon: {
+    color: "#FFFFFF",
+    fontSize: 18,
+  },
+  audioSliderContainer: {
+    flex: 1,
+  },
+  audioSlider: {
+    width: "100%",
+    height: 40,
+  },
+  audioTimeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 4,
+    marginTop: -8,
+  },
+  audioTimeText: {
+    color: "#6B7280",
+    fontSize: 12,
   },
   // Legacy styles (keeping for compatibility)
   gradientHeader: {

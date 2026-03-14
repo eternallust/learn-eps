@@ -7,7 +7,7 @@
     "icon": "./src/assets/images/learn.png",
     "scheme": "learnepstopik",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true
     },
@@ -16,7 +16,6 @@
         "foregroundImage": "./src/assets/images/learn.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "package": "com.rizkykompit.learnepstopik"
     },
     "web": {
@@ -33,6 +32,16 @@
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "36.0.0"
+          }
         }
       ]
     ],

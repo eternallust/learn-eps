@@ -1,4 +1,5 @@
 import QuizScreen from "@screens/quiz/QuizScreen";
+import React from "react";
 
 // Data soal simulasi
 const quizData = [
@@ -48,6 +49,13 @@ const quizData = [
     options: ["Enak/Lezat", "Mahal", "Murah", "Tidak enak"],
     correctAnswer: 0,
     type: "text",
+  },
+  {
+    id: 6,
+    question: "맛있어요의 뜻은 무엇입니까?",
+    options: ["Enak/Lezat", "Mahal", "Murah", "Tidak enak"],
+    correctAnswer: 0,
+    type: "listening",
   },
 ];
 

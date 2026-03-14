@@ -1,7 +1,10 @@
 import { Text } from "@components/ui";
+import Slider from "@react-native-community/slider";
+import { Audio, AVPlaybackStatus } from "expo-av";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import React, { useEffect, useState } from "react";
+import LottieView from "lottie-react-native";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -19,6 +22,8 @@ interface QuizItem {
   correctAnswer: number;
   type: string;
   imageSource?: ImageSourcePropType;
+  audioSource?: any;
+  listeningText?: string;
 }
 
 interface QuizScreenProps {
@@ -30,13 +35,101 @@ interface QuizScreenProps {
 export default function QuizScreen({
   quizData,
   title = "Aptitude Test",
-  timePerQuestion = 120,
+  timePerQuestion = 1200,
 }: QuizScreenProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   const [quizFinished, setQuizFinished] = useState(false);
+
+  // Audio player
+  const soundRef = useRef<Audio.Sound | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const currentQuestion = quizData[currentQuestionIndex];
+
+  // Format waktu mm:ss
+  const formatAudioTime = (millis: number) => {
+    const totalSeconds = Math.floor(millis / 1000);
+    const mins = Math.floor(totalSeconds / 60);
+    const secs = totalSeconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
+  // Callback untuk update status audio
+  const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
+    if (status.isLoaded) {
+      setDuration(status.durationMillis || 0);
+      setPosition(status.positionMillis || 0);
+      setIsPlaying(status.isPlaying);
+
+      if (status.didJustFinish) {
+        setIsPlaying(false);
+        setPosition(0);
+      }
+    }
+  };
+
+  // Default audio dari assets
+  const defaultAudio = require("@assets/sound/file_example_MP3_700KB.mp3");
+
+  // Load audio saat soal listening muncul
+  useEffect(() => {
+    const loadAudio = async () => {
+      if (currentQuestion.type === "listening") {
+        setIsLoading(true);
+        try {
+          const audioSource = currentQuestion.audioSource || defaultAudio;
+          const { sound } = await Audio.Sound.createAsync(
+            audioSource,
+            { shouldPlay: false },
+            onPlaybackStatusUpdate
+          );
+          soundRef.current = sound;
+        } catch (error) {
+          console.error("Error loading audio:", error);
+        }
+        setIsLoading(false);
+      }
+    };
+
+    loadAudio();
+
+    return () => {
+      if (soundRef.current) {
+        soundRef.current.unloadAsync();
+        soundRef.current = null;
+        setIsPlaying(false);
+        setPosition(0);
+        setDuration(0);
+      }
+    };
+  }, [currentQuestionIndex, currentQuestion.audioSource, currentQuestion.type]);
+
+  // Play/Pause audio
+  const togglePlayPause = async () => {
+    if (!soundRef.current) return;
+
+    if (isPlaying) {
+      await soundRef.current.pauseAsync();
+    } else {
+      if (position >= duration && duration > 0) {
+        await soundRef.current.setPositionAsync(0);
+      }
+      await soundRef.current.playAsync();
+    }
+  };
+
+  // Seek audio
+  const onSliderValueChange = async (value: number) => {
+    if (soundRef.current) {
+      await soundRef.current.setPositionAsync(value);
+    }
+  };
 
   // Timer untuk soal
   useEffect(() => {
@@ -47,8 +140,6 @@ export default function QuizScreen({
       handleNextQuestion();
     }
   }, [timeLeft, quizFinished]);
-
-  const currentQuestion = quizData[currentQuestionIndex];
 
   // Format timer sebagai mm:ss
   const formatTime = (seconds: number) => {
@@ -61,7 +152,17 @@ export default function QuizScreen({
     setSelectedOption(optionIndex);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    // Stop dan unload audio jika ada
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.unloadAsync();
+      soundRef.current = null;
+      setIsPlaying(false);
+      setPosition(0);
+      setDuration(0);
+    }
+
     // Periksa jawaban dan tambahkan skor jika benar
     if (selectedOption === currentQuestion.correctAnswer) {
       setScore(score + 1);
@@ -79,7 +180,17 @@ export default function QuizScreen({
     }
   };
 
-  const handleRestartQuiz = () => {
+  const handleRestartQuiz = async () => {
+    // Stop dan unload audio jika ada
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.unloadAsync();
+      soundRef.current = null;
+      setIsPlaying(false);
+      setPosition(0);
+      setDuration(0);
+    }
+
     setCurrentQuestionIndex(0);
     setSelectedOption(null);
     setScore(0);
@@ -87,47 +198,77 @@ export default function QuizScreen({
     setQuizFinished(false);
   };
 
+  const lottieRef = useRef<LottieView>(null);
+  const confettiRef = useRef<LottieView>(null);
+  const earnedPoints = score * 10;
+
+  useEffect(() => {
+    if (quizFinished && confettiRef.current) {
+      confettiRef.current.play();
+
+      const interval = setInterval(() => {
+        confettiRef.current?.play();
+      }, 4000);
+
+      return () => clearInterval(interval);
+    }
+  }, [quizFinished]);
+
   // Tampilan hasil akhir
   if (quizFinished) {
     return (
-      <LinearGradient
-        colors={["#FDF2F8", "#EDE9FE", "#DBEAFE"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradientBackground}
-      >
+      <View style={styles.resultBackground}>
+        <View style={styles.confettiOverlay} pointerEvents="none">
+          <LottieView
+            ref={confettiRef}
+            source={require("@assets/images/confeti.json")}
+            loop={false}
+            style={styles.confettiAnimation}
+          />
+        </View>
+
         <View style={styles.resultContainer}>
-          <Text variant="bold" size="xxl" style={styles.resultTitle}>
-            Simulasi Selesai!
+          <View style={styles.lottieContainer}>
+            <LottieView
+              ref={lottieRef}
+              source={require("@assets/images/pass.json")}
+              autoPlay
+              loop={false}
+              style={styles.lottieAnimation}
+            />
+          </View>
+
+          <Text variant="bold" style={styles.pointsText}>
+            +{earnedPoints} Points
           </Text>
-          <Text variant="medium" size="xl" style={styles.resultScore}>
-            Skor Anda: {score} / {quizData.length}
+
+          <Text variant="bold" size="lg" style={styles.congratsTitle}>
+            Congratulations, collect more
           </Text>
-          <Text variant="regular" size="md" style={styles.resultText}>
-            {score === quizData.length
-              ? "Sempurna! Anda menguasai semua materi dengan baik."
-              : score >= quizData.length / 2
-              ? "Bagus! Teruslah berlatih untuk meningkatkan pemahaman Anda."
-              : "Teruslah belajar dan berlatih. Anda pasti bisa!"}
+
+          <Text variant="regular" size="md" style={styles.congratsSubtitle}>
+            To get more points, immediately exchange{"\n"}your trash with us. and get abundant points
           </Text>
+
           <TouchableOpacity
-            style={styles.restartButton}
+            style={styles.seePointsButton}
+            onPress={() => router.push("/")}
+          >
+            <Text variant="medium" size="md" style={styles.seePointsButtonText}>
+              See my points
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.tryAgainButton}
             onPress={handleRestartQuiz}
           >
-            <Text variant="medium" size="md" style={styles.restartButtonText}>
+            <Text variant="medium" size="md" style={styles.tryAgainButtonText}>
               Coba Lagi
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.homeButton}
-            onPress={() => router.push("/")}
-          >
-            <Text variant="medium" size="md" style={styles.homeButtonText}>
-              Kembali ke Beranda
-            </Text>
-          </TouchableOpacity>
         </View>
-      </LinearGradient>
+      </View>
     );
   }
 
@@ -164,12 +305,9 @@ export default function QuizScreen({
             {/* <BackButton /> */}
           </View>
           <View style={styles.headerCenter}>
-            <Text variant="bold" size="xl" style={{ color: "white" }}>
-              Kosakata
+            <Text variant="bold" size="xl">
+              Simulasi CBT
             </Text>
-          </View>
-          <View style={styles.headerRight}>
-           
           </View>
         </View>
       </View>
@@ -222,6 +360,47 @@ export default function QuizScreen({
               style={styles.questionImage}
               resizeMode="contain"
             />
+          )}
+          {currentQuestion.type === "listening" && (
+            <View style={styles.listeningContainer}>
+              {currentQuestion.listeningText && (
+                <Text style={styles.listeningText}>{currentQuestion.listeningText}</Text>
+              )}
+              
+              <View style={styles.audioPlayerContainer}>
+                <TouchableOpacity
+                  style={styles.playPauseButton}
+                  onPress={togglePlayPause}
+                  disabled={isLoading || !soundRef.current}
+                >
+                  <Text style={styles.playPauseIcon}>
+                    {isLoading ? "⏳" : isPlaying ? "⏸" : "▶"}
+                  </Text>
+                </TouchableOpacity>
+
+                <View style={styles.audioSliderContainer}>
+                  <Slider
+                    style={styles.audioSlider}
+                    minimumValue={0}
+                    maximumValue={duration}
+                    value={position}
+                    onSlidingComplete={onSliderValueChange}
+                    minimumTrackTintColor="#4338CA"
+                    maximumTrackTintColor="#E5E7EB"
+                    thumbTintColor="#4338CA"
+                    disabled={!soundRef.current}
+                  />
+                  <View style={styles.audioTimeContainer}>
+                    <Text style={styles.audioTimeText}>
+                      {formatAudioTime(position)}
+                    </Text>
+                    <Text style={styles.audioTimeText}>
+                      {formatAudioTime(duration)}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
           )}
         </View>
        
