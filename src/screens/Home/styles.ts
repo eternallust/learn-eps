@@ -1,13 +1,13 @@
 import { COLORS } from "@/constants/theme";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
+const { height } = Dimensions.get("window");
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   safeArea: {
     flex: 1,
-    backgroundColor: COLORS.background,
   },
   scrollContainer: {
     paddingHorizontal: 20,
@@ -16,6 +16,264 @@ export const styles = StyleSheet.create({
   },
   progressSection: {
     marginBottom: 15,
+  },
+  // Level / Progress card (white card with level, progress bar, streak)
+  levelCard: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 4,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 12,
+  },
+  levelCardTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+
+  },
+  levelBadge: {
+    backgroundColor: "#E8ECF1",
+    paddingHorizontal: 12,
+    paddingVertical: 2,
+    borderRadius: 999,
+  },
+  levelBadgeText: {
+    fontSize: 14,
+    fontWeight:"700",
+    fontFamily: "Poppins-Bold",
+    color: "#272d56",
+  },
+  levelCardDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: "#272d56",
+    marginHorizontal: 6,
+  },
+  levelCardTitle: {
+    fontSize: 14,
+    fontFamily: "Poppins-Medium",
+    color: "#272d56",
+  },
+  levelCardProgressRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  levelCardProgressBar: {
+    flex: 1,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#E8ECF1",
+    overflow: "hidden",
+    marginRight: 10,
+  },
+  levelCardProgressFill: {
+    height: "100%",
+    borderRadius: 4,
+    backgroundColor: COLORS.primary,
+    width: "60%",
+  },
+  levelCardPercent: {
+    fontSize: 16,
+    fontFamily: "Poppins-Bold",
+    color: "#272d56",
+    marginRight: 12,
+  },
+  levelCardActionButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: COLORS.primary,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  levelCardStreakRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  levelCardStreakLabel: {
+    fontSize: 14,
+    fontFamily: "Poppins-Regular",
+    color: "#272d56",
+    marginRight: 4,
+  },
+  levelCardStreakValue: {
+    fontSize: 14,
+    fontFamily: "Poppins-Medium",
+    color: "#E53E3E",
+  },
+  // Lanjut Belajar - Banner image
+  lanjutBelajarBanner: {
+    marginBottom: 20,
+    borderRadius: 20,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  lanjutBelajarBannerImage: {
+    marginTop: 4,
+    width: "100%",
+    height: height * 0.1,
+  },
+  // Pilih Materi Belajar - section + 2x2 grid
+  materiSection: {
+    marginTop: 2,
+  },
+  materiSectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  materiSectionTitle: {
+    fontFamily: "Poppins-Bold",
+    fontSize: 16,
+    color: "#2C3E50",
+  },
+  materiLihatSemua: {
+    fontFamily: "Poppins-Medium",
+    fontSize: 14,
+    color: COLORS.primary,
+  },
+  materiGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 12,
+  },
+  materiCard: {
+    width: "48%",
+    backgroundColor: "#FFFFFF",
+    borderRadius: 14,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 4,
+    padding: 8,
+  },
+  materiCardTop: {
+    alignItems: "center",
+    flex: 1,
+    borderRadius: 6,
+  },
+  materiIconWrap: {
+    borderRadius: 12,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 16,
+  },
+  materiCardIconImage: {
+    width: 72,
+    height: 72,
+  },
+  materiCardText: {
+    flex: 1,
+    justifyContent: "center",
+    padding: 8,
+    alignItems: "center",
+  },
+  materiCardTitle: {
+    fontFamily: "Poppins-Bold",
+    fontSize: 16,
+    color: "#2C3E50",
+
+  },
+  materiCardSubtitle: {
+    fontFamily: "Poppins-Regular",
+    marginTop: -4,
+    fontSize: 12,
+    color: "#718096",
+  },
+  materiCardButton: {
+    marginTop: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: "#EDF2F7",
+    width: "100%",
+  },
+  materiCardButtonLabel: {
+    fontFamily: "Poppins-Medium",
+    fontSize: 14,
+  },
+  materiArrowWrap: {
+padding: 4,
+    borderRadius: 200,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  // Lanjut Belajar CTA card (gradient blue, ilustrasi wanita keluar ke atas)
+  lanjutBelajarCard: {
+    marginBottom: 20,
+    position: "relative",
+    elevation: 6,
+    minHeight: 100,
+  },
+  lanjutBelajarGradientWrap: {
+    borderRadius: 20,
+    overflow: "hidden",
+    minHeight: 100,
+  },
+  lanjutBelajarGradient: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 18,
+    paddingHorizontal: 18,
+    minHeight: 100,
+  },
+  lanjutBelajarLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
+    marginRight: 90,
+  },
+  lanjutBelajarPlayIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "rgba(255,255,255,0.25)",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 14,
+  },
+  lanjutBelajarTextWrap: {
+    flex: 1,
+  },
+  lanjutBelajarTitle: {
+    color: "#FFFFFF",
+    fontFamily: "Poppins-Bold",
+    fontSize: 18,
+  },
+  lanjutBelajarSubtitle: {
+    color: "#FFFFFF",
+    fontFamily: "Poppins-Regular",
+    fontSize: 13,
+    opacity: 0.95,
+  },
+  lanjutBelajarIllustrationWrap: {
+    position: "absolute",
+    right: 12,
+    bottom: 0,
+    width: 120,
+    height: 140,
+    justifyContent: "flex-end",
+    paddingHorizontal: 12,
+    alignItems: "center",
+  },
+  lanjutBelajarIllustration: {
+    width: 120,
+    height: 140,
   },
   sectionTitle: {
     fontSize: 16,
@@ -132,11 +390,11 @@ export const styles = StyleSheet.create({
     textAlign: "left",
   },
   startButton: {
-    backgroundColor: COLORS.primarydark,
+    backgroundColor: "#192a56",
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
-    marginTop: 8,
+    marginTop: 6,
     width: "100%",
     alignItems: "center",
     shadowColor: "#005c97",
@@ -241,8 +499,6 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-
-    paddingBottom: 16,
   },
   headerLeft: {
     flexDirection: "row",
@@ -270,7 +526,8 @@ export const styles = StyleSheet.create({
     marginBottom: 2,
   },
   headerSubtitle: {
-    fontSize: 14,
+    marginTop: -8,
+    fontSize: 12,
     fontFamily: "Poppins-Regular",
     color: COLORS.primarydark,
   },
@@ -286,6 +543,17 @@ export const styles = StyleSheet.create({
   },
   settingsIcon: {
     fontSize: 20,
+  },
+  headerAvatarButton: {
+
+    borderRadius: 21,
+    backgroundColor: "white",
+    padding: 1,
+  },
+  headerAvatar: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
   },
   // Empty State styles
   emptyStateBinderCard: {

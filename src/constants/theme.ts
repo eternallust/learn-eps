@@ -1,6 +1,6 @@
 // Color Palette
 export const COLORS = {
-  primary: "#4A90E2",
+  primary: "#2174f2",
   primarydark: "#1A1941",
   secondary: "#7B68EE",
   background: "#FAFBFC",
@@ -40,8 +40,8 @@ export const FONTS = {
     regular: "Poppins-Regular",
     medium: "Poppins-Medium",
     bold: "Poppins-Bold",
-    obvia: "Obvia-Regular",
-    obviaBold: "Obvia-Bold",
+    obvia: "Poppins-Regular",
+    obviaBold: "Poppins-Bold",
   },
 } as const;
 

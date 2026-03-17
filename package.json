@@ -18,6 +18,7 @@
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
+    "@shopify/react-native-skia": "^2.5.1",
     "audio": "^1.2.0",
     "expo": "^55.0.3",
     "expo-av": "^16.0.8",
@@ -46,6 +47,7 @@
     "react-native-reanimated-carousel": "^4.0.2",
     "react-native-safe-area-context": "~5.6.2",
     "react-native-screens": "~4.23.0",
+    "react-native-svg": "15.15.3",
     "react-native-swipeable-card-stack": "^2.0.0",
     "react-native-web": "^0.21.2",
     "react-native-webview": "13.16.0",
@@ -59,6 +61,7 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^9.25.0",
     "eslint-config-expo": "~9.2.0",
+    "prettier": "^3.4.2",
     "typescript": "~5.8.3"
   },
   "private": true

@@ -2,7 +2,7 @@
 
 ## ObviaBold
 
-Komponen `ObviaBold` adalah komponen teks dengan gaya bold yang dapat digunakan untuk menampilkan teks dengan penekanan.
+Komponen `ObviaBold` adalah komponen teks dengan font Poppins Bold yang dapat digunakan untuk menampilkan teks dengan penekanan.
 
 ### Penggunaan
 
@@ -32,7 +32,7 @@ Komponen ini juga mendukung semua props dari komponen Text bawaan React Native.
 
 ## ObviaRegular
 
-Komponen `ObviaRegular` adalah komponen teks dengan font Obvia Regular yang dapat digunakan untuk menampilkan teks dengan gaya Obvia standar.
+Komponen `ObviaRegular` adalah komponen teks dengan font Poppins Regular yang dapat digunakan untuk menampilkan teks dengan gaya standar.
 
 ### Penggunaan
 
@@ -40,12 +40,12 @@ Komponen `ObviaRegular` adalah komponen teks dengan font Obvia Regular yang dapa
 import { ObviaRegular } from '@components/ui';
 
 // Contoh penggunaan dasar
-<ObviaRegular>Ini adalah teks Obvia Regular</ObviaRegular>
+<ObviaRegular>Ini adalah teks Poppins Regular</ObviaRegular>
 
 // Dengan ukuran berbeda
-<ObviaRegular size="xs">Teks kecil Obvia</ObviaRegular>
-<ObviaRegular size="md">Teks sedang Obvia</ObviaRegular>
-<ObviaRegular size="xl">Teks besar Obvia</ObviaRegular>
+<ObviaRegular size="xs">Teks kecil</ObviaRegular>
+<ObviaRegular size="md">Teks sedang</ObviaRegular>
+<ObviaRegular size="xl">Teks besar</ObviaRegular>
 
 // Dengan gaya tambahan
 <ObviaRegular style={{ color: 'blue' }}>Teks Obvia biru</ObviaRegular>

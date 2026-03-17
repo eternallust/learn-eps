@@ -1,9 +1,12 @@
+import backgroundApp from "@/assets/images/background-app";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
+import { SvgXml } from "react-native-svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootLayout() {
@@ -11,18 +14,14 @@ export default function RootLayout() {
     "Poppins-Regular": require("../src/assets/fonts/Poppins-Regular.ttf"),
     "Poppins-Medium": require("../src/assets/fonts/Poppins-Medium.ttf"),
     "Poppins-Bold": require("../src/assets/fonts/Poppins-Bold.ttf"),
-    "Obvia-Regular": require("../src/assets/fonts/obvia/obvia-400.otf"),
-    "Obvia-Bold": require("../src/assets/fonts/obvia/obvia-900.otf"),
   });
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      // Hide the splash screen after the fonts have loaded (or an error was returned)
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
 
-  // Prevent rendering until the font has loaded or an error was returned
   if (!fontsLoaded && !fontError) {
     return null;
   }
@@ -30,48 +29,46 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="homescreen/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="lesson/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="quiz/index" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="vocabulary/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="vocabulary/vocabulary-flash-card/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="profile/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="simulation/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="simulation/quiz/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="grammar/index"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="info/index" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <StatusBar style="dark" />
-        </SafeAreaView>
+        <View style={styles.root}>
+          <SvgXml
+            xml={backgroundApp}
+            width="100%"
+            height="100%"
+            style={StyleSheet.absoluteFillObject}
+            preserveAspectRatio="xMidYMid slice"
+          />
+          <SafeAreaView style={{ flex: 1 }}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: "transparent" },
+                animation: "slide_from_right",
+              }}
+            >
+              <Stack.Screen name="index" />
+              <Stack.Screen name="homescreen/index" />
+              <Stack.Screen name="lesson/index" />
+              <Stack.Screen name="quiz/index" />
+              <Stack.Screen name="vocabulary/index" />
+              <Stack.Screen name="vocabulary/vocabulary-flash-card/index" />
+              <Stack.Screen name="profile/index" />
+              <Stack.Screen name="simulation/index" />
+              <Stack.Screen name="simulation/quiz/index" />
+              <Stack.Screen name="grammar/index" />
+              <Stack.Screen name="info/index" />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <StatusBar style="dark" />
+          </SafeAreaView>
+        </View>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: "#F3F2F9",
+  },
+});

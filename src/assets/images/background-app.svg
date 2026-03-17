@@ -1,0 +1,40 @@
+<svg width="1024" height="1792" viewBox="0 0 1024 1792" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="512" y1="0" x2="512" y2="1792" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F3F2F9"/>
+      <stop offset="38%" stop-color="#EFF2FB"/>
+      <stop offset="68%" stop-color="#F7F5F8"/>
+      <stop offset="100%" stop-color="#F6F6FA"/>
+    </linearGradient>
+
+    <radialGradient id="glowPeach" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(110 1520) rotate(0) scale(430 330)">
+      <stop offset="0%" stop-color="#F6DCCF" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#F6DCCF" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="glowBlue" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(860 1560) rotate(0) scale(430 360)">
+      <stop offset="0%" stop-color="#DCE5FB" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#DCE5FB" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="waveLeft" x1="0" y1="1440" x2="530" y2="1680" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#F5E5DD" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ECE8F5" stop-opacity="0.55"/>
+    </linearGradient>
+
+    <linearGradient id="waveRight" x1="430" y1="1500" x2="1024" y2="1760" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ECE8F5" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#DCE3F8" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1792" fill="url(#bg)"/>
+  <rect width="1024" height="1792" fill="url(#glowPeach)"/>
+  <rect width="1024" height="1792" fill="url(#glowBlue)"/>
+
+  <path d="M0 1548C92 1513 194 1503 290 1513C394 1524 476 1569 566 1585C676 1605 801 1588 918 1564C958 1556 992 1548 1024 1540V1792H0V1548Z" fill="url(#waveLeft)"/>
+
+  <path d="M0 1691C141 1631 336 1614 514 1600C693 1586 868 1571 1024 1528V1792H0V1691Z" fill="url(#waveRight)"/>
+</svg>

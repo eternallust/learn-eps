@@ -1,21 +1,23 @@
-import { COLORS } from "@/constants/theme";
 import { vocabularies } from "@/data/vocabulary";
-import { BinderCard, Header, ObviaBold, Text } from "@components/ui";
-import { Ionicons } from "@expo/vector-icons";
+import { Text } from "@components/ui";
+import Ionicons from "@expo/vector-icons/build/Ionicons";
 import * as Haptics from "expo-haptics";
+import { ImageBackground } from "expo-image";
 import { useRouter } from "expo-router";
-import LottieView from "lottie-react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Dimensions,
+  FlatList,
+  Image,
   Platform,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import PagerView from "react-native-pager-view";
-import Animated, { useSharedValue } from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 import { styles } from "./styles";
 
 // Define screen width
@@ -38,6 +40,23 @@ interface VocabularyChapter {
 export const VocabularyScreen: React.FC = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>("kosakata_eps_topik");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const PAGE_SIZE = 10;
+  const [displayedData, setDisplayedData] = useState(vocabularies.slice(0, PAGE_SIZE));
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const hasMore = displayedData.length < vocabularies.length;
+
+  const loadMore = useCallback(() => {
+    if (isLoadingMore || !hasMore) return;
+    setIsLoadingMore(true);
+    setTimeout(() => {
+      setDisplayedData((prev) =>
+        vocabularies.slice(0, prev.length + PAGE_SIZE)
+      );
+      setIsLoadingMore(false);
+    }, 400);
+  }, [isLoadingMore, hasMore]);
   const scrollX = useSharedValue(0);
   const pagerRef = useRef<PagerView>(null);
 
@@ -95,220 +114,187 @@ export const VocabularyScreen: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Sample data for projects by tab
-
-  // Projects are accessed directly from projectsByTab[tab]
-
-  const renderProjectItem = ({
-    item,
-    index,
-  }: {
-    item: VocabularyChapter;
-    index: number;
-  }) => (
-    <View style={styles.projectCard}>
-      <View
-        style={{
-          backgroundColor: COLORS.primarydark,
-          width: 8,
-          borderTopLeftRadius: 20,
-          borderBottomLeftRadius: 20,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      />
-      <View style={{ flex: 1, padding: 12, gap: 12 }}>
-        <View>
-          <Text style={{ textAlign: "center" }} variant="bold" size="lg">
-            {index ? `Bab ${index}` : "Pendahuluan"}
-          </Text>
-          <Text style={{ textAlign: "center" }} size="lg">
-            {`${item.koreanChapterName} (${item.chapterName})`}
-          </Text>
-        </View>
-
-        <View
-          style={{ flexDirection: "row", flex: 1, flexWrap: "wrap", gap: 12 }}
-        >
-          {item.vocabulary.map((cardItem, indexCardItem) => (
-            <View key={indexCardItem} style={{ width: "48%" }}>
-              <BinderCard
-                style={{ width: "100%", flex: 1 }}
-                onPress={() => router.push({
-                  pathname: "/vocabulary/vocabulary-flash-card",
-                  params: {
-                    chapter: index,
-                    vocabularyIndex: indexCardItem,
-                    chapterName: item.chapterName,
-                    koreanChapterName: item.koreanChapterName,
-                    vocabularyTitle: cardItem.koreanTitle,
-                    vocabularyEnglishTitle: cardItem.englishTitle
-                  }
-                })}
-                showBinderHole
-              >
-                <View
-                  style={{
-                    height: "100%",
-                    paddingLeft: 4,
-                    flex: 1,
-                    width: "100%",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Text variant="bold" size="sm">
-                    Kosakata (어휘)
-                  </Text>
-                  <View style={{ flex: 1 }}>
-                    <ObviaBold style={{ fontSize: 80 }}>
-                      {indexCardItem + 1}
-                    </ObviaBold>
-                  </View>
-                  <Text numberOfLines={1} variant="bold" size="sm">
-                    {cardItem.koreanTitle}
-                  </Text>
-                  <Text
-                    numberOfLines={1}
-                    variant="regular"
-                    size="sm"
-                    style={{ textAlign: "center" }}
-                  >
-                    {cardItem.englishTitle}
-                  </Text>
-                </View>
-              </BinderCard>
-            </View>
-          ))}
-        </View>
-      </View>
-    </View>
-  );
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Header title="Pelajaran" />
+
       <View style={styles.container}>
-        <View style={styles.tabContainer}>
-          {tabs.map((tab, index) => {
-            const isActive = tab === activeTab;
-
-            return (
-              <TouchableOpacity
-                key={tab}
-                style={[styles.tabButton]}
-                onPress={() => handleTabPress(tab)}
-                activeOpacity={0.5}
-                hitSlop={{ top: 20, bottom: 20, left: 15, right: 15 }}
-                delayPressIn={0}
-                pressRetentionOffset={{
-                  top: 20,
-                  bottom: 20,
-                  left: 15,
-                  right: 15,
-                }}
+        <View style={[styles.customHeader]}>
+          <View style={styles.headerLeft}>
+            <TouchableOpacity
+              onPress={() => router.back()}
+              activeOpacity={0.7}
+              style={styles.backButton}
+            >
+              <Ionicons name="arrow-back" size={20} color="#1A1941" />
+            </TouchableOpacity>
+            <View style={styles.titleContainer}>
+              <Text variant="bold" size="xl" style={[styles.headerTitle]}>
+                Kosakata
+              </Text>
+              <Text
+                variant="regular"
+                size="md"
+                style={[styles.headerSubtitle]}
               >
-                <Animated.View
-                  style={[
-                    styles.tabButtonInner,
-                    {
-                      borderBottomColor: isActive ? "#007AFF" : "transparent",
-                      transform: [{ scale: isActive ? 1.05 : 1 }],
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.tabText,
-                      {
-                        color: "white",
-                        fontWeight: isActive ? "700" : "400",
-                        fontSize: 15,
-                      },
-                    ]}
-                  >
-                    {tab === "kosakata_eps_topik"
-                      ? "Kosakata EPS TOPIK"
-                      : "Kustom Kosakata"}
-                  </Text>
-                </Animated.View>
-              </TouchableOpacity>
-            );
-          })}
+                List Materi Kosakata EPS-TOPIK
+              </Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.headerAvatarButton}
+            onPress={() => null}
+            activeOpacity={0.8}
+          >
+            <Image
+              source={require("../../assets/images/avatar.jpg")}
+              style={styles.headerAvatar}
+              resizeMode="cover"
+            />
+          </TouchableOpacity>
         </View>
+        {/* Search bar */}
 
-        {/* Tab Content with PagerView */}
-        <PagerView
-          ref={pagerRef}
-          style={styles.contentContainer}
-          initialPage={tabs.indexOf(activeTab)}
-          onPageSelected={handlePageChange}
-          pageMargin={10}
-          offscreenPageLimit={1}
-          overdrag={true}
-          layoutDirection="ltr"
-        >
-          {tabs.map((tab) => (
-            <View key={tab} style={{ flex: 1 }}>
-              {/* Search Input */}
-              <View style={styles.searchContainer}>
-                <View style={styles.searchInputWrapper}>
-                  <Ionicons
-                    name="search"
-                    size={18}
-                    color="#8E8E93"
-                    style={{ marginRight: 8 }}
-                  />
-                  <TextInput
-                    style={styles.searchInput}
-                    placeholder="Cari nomor bab, nama bab, atau nama kosakata.."
-                    placeholderTextColor="#8E8E93"
-                  />
-                </View>
+        <View style={styles.searchBar}>
+          <View style={styles.searchInputWrap}>
+
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Cari kosakata..."
+              placeholderTextColor="#9A9AB0"
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              returnKeyType="search"
+            />
+            {searchQuery.length > 0 && (
+              <TouchableOpacity onPress={() => setSearchQuery("")} activeOpacity={0.7}>
+                <Ionicons name="close-circle" size={18} color="#9A9AB0" />
+              </TouchableOpacity>
+            )}
+          </View>
+          <TouchableOpacity style={styles.filterButton} activeOpacity={0.7}>
+            <Ionicons name="search" size={16} color="white" />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          data={displayedData}
+          keyExtractor={(_, i) => i.toString()}
+          contentContainerStyle={{ paddingBottom: 24 }}
+          onEndReached={loadMore}
+          onEndReachedThreshold={0.3}
+          ListFooterComponent={
+            isLoadingMore ? (
+              <ActivityIndicator
+                size="small"
+                color="#5B5FEF"
+                style={{ paddingVertical: 16 }}
+              />
+            ) : null
+          }
+          ListHeaderComponent={() => (
+            <>
+
+              {/* Progress Banner */}
+
+              <View style={styles.bannerShadow}>
+                <ImageBackground source={require("../../assets/images/vocabulary-banner-2.png")} contentFit="cover" style={styles.bannerImage}>
+                  <View style={styles.bannerContent}>
+                    <Text variant="bold" style={styles.bannerTitle}>Progress Belajar</Text>
+
+                    <View style={styles.progressRow}>
+                      <View style={styles.progressTrack}>
+                        <View style={[styles.progressFill, { width: "48%" }]} />
+                      </View>
+                      <Text variant="bold" style={styles.progressPercent}>48%</Text>
+                    </View>
+
+                    <View style={styles.streakRow}>
+                      <Text style={styles.streakText}>🔥 24 Hari Beruntun!</Text>
+                    </View>
+                  </View>
+
+                </ImageBackground>
               </View>
 
-              <Animated.FlatList
-                ListEmptyComponent={
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <LottieView
-                      source={require("@/assets/images/girl-with-books.json")}
-                      style={{
-                        width: 240,
-                        height: 240,
-                        marginBottom: 16,
-                        alignSelf: "center",
-                      }}
-                      autoPlay
-                      loop={false}
-                    />
+
+              {/* <View style={{ backgroundColor: "#192a56", borderRadius: 12, marginHorizontal: 12 }}>
+                <Image source={require("../../assets/images/learning-laptop.png")} style={{ width: 90, height: 90, alignSelf: "flex-end", marginTop: 12, borderBottomRightRadius: 12 }} />
+              </View> */}
+              <View style={styles.materiSectionHeader}>
+                <Text variant="bold" size="lg" style={styles.materiSectionTitle}>
+                  List Modul Kosakata
+                </Text>
+
+              </View>
+
+            </>
+          )
+          }
+
+
+          renderItem={({ item: card, index }) => (
+            <View style={[
+              styles.timelineCard,
+            ]}>
+              <View style={{ flexDirection: "row", paddingHorizontal: 12, paddingVertical: 20, gap: 8 }}>
+                <View style={{ borderRadius: 12, padding: 12, backgroundColor: "#e1e4fe" }}>
+                  <Image
+                    source={require("../../assets/images/kosakata.png")}
+                    style={{ width: 50, height: 50, borderRadius: 10 }}
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flex: 1 }}>
+                    <Text size="sm">{`Bab ${index + 1}`}</Text>
+                    <Text variant="bold" size="sm" style={{ marginTop: -6 }}>{card.chapterName}</Text>
                   </View>
-                }
-                data={vocabularies}
-                renderItem={renderProjectItem}
-                // keyExtractor={(item) => item.id}
-                showsVerticalScrollIndicator={false}
-                style={styles.contentContainer}
-                removeClippedSubviews={true}
-                maxToRenderPerBatch={5}
-                windowSize={5}
-                initialNumToRender={5}
-                contentContainerStyle={{
-                  paddingHorizontal: 16,
-                  paddingBottom: 20,
-                  // Mengisi seluruh tinggi parent ketika tidak ada data
-                  flex: vocabularies.length === 0 ? 1 : undefined,
-                }}
-              />
+                  <View style={{ flexDirection: "row", gap: 2 }}>
+                    <View style={{ backgroundColor: "#273c75", padding: 4, width: 80, justifyContent: "center", alignItems: "center", borderRadius: 12 }}>
+                      <Text size="sm" style={{ color: "white", fontSize: 10 }}>2 daftar</Text>
+                    </View>
+                    <View style={{ backgroundColor: "#273c75", padding: 4, width: 80, justifyContent: "center", alignItems: "center", borderRadius: 12 }}>
+                      <Text size="sm" style={{ color: "white", fontSize: 10 }}>120 kata</Text>
+                    </View>
+                  </View>
+                </View>
+                <View style={styles.timelineChevron}>
+                  <Ionicons name="chevron-down" size={16} color="#5B5FEF" />
+                </View>
+              </View>
+              {index < 1 && (
+                <View style={{ borderTopWidth: 1, borderColor: "#EBEBF0", marginHorizontal: 4 }}>
+                  {card.vocabulary.map((vocab, vocabIndex) => (
+                    <TouchableOpacity key={vocabIndex} onPress={() => router.push({
+                      pathname: "/vocabulary/vocabulary-flash-card",
+                      params: {
+                        chapter: index,
+                        vocabularyIndex: vocabIndex,
+                        chapterName: card.chapterName,
+                        koreanChapterName: card.koreanChapterName,
+                        vocabularyTitle: vocab.koreanTitle,
+                        vocabularyEnglishTitle: vocab.englishTitle
+                      }
+                    })}>
+                      <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, paddingVertical: 12 }}>
+                        <View style={{ flex: 1, gap: 2 }}>
+                          <Text size="sm">{vocab.koreanTitle}</Text>
+                          <Text variant="regular" size="xs" style={{ color: "#6B7280" }}>{vocab.englishTitle}</Text>
+                        </View>
+                        <View style={styles.timelineChevron}>
+                          <Ionicons name="arrow-forward" size={14} color="#5B5FEF" />
+                        </View>
+                      </View>
+                      {vocabIndex < card.vocabulary.length - 1 && (
+                        <View style={{ height: 1, backgroundColor: "#F3F4F6", marginHorizontal: 4 }} />
+                      )}
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
             </View>
-          ))}
-        </PagerView>
-      </View>
-    </GestureHandlerRootView>
+          )}
+        />
+      </View >
+    </GestureHandlerRootView >
   );
 };
