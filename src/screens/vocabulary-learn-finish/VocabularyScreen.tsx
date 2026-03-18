@@ -42,7 +42,7 @@ export const VocabularyScreen: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>("kosakata_eps_topik");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 5;
   const [displayedData, setDisplayedData] = useState(vocabularies.slice(0, PAGE_SIZE));
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const hasMore = displayedData.length < vocabularies.length;
@@ -261,36 +261,36 @@ export const VocabularyScreen: React.FC = () => {
                   <Ionicons name="chevron-down" size={16} color="#5B5FEF" />
                 </View>
               </View>
-              {index < 1 && (
-                <View style={{ borderTopWidth: 1, borderColor: "#EBEBF0", marginHorizontal: 4 }}>
-                  {card.vocabulary.map((vocab, vocabIndex) => (
-                    <TouchableOpacity key={vocabIndex} onPress={() => router.push({
-                      pathname: "/vocabulary/vocabulary-flash-card",
-                      params: {
-                        chapter: index,
-                        vocabularyIndex: vocabIndex,
-                        chapterName: card.chapterName,
-                        koreanChapterName: card.koreanChapterName,
-                        vocabularyTitle: vocab.koreanTitle,
-                        vocabularyEnglishTitle: vocab.englishTitle
-                      }
-                    })}>
-                      <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, paddingVertical: 12 }}>
-                        <View style={{ flex: 1, gap: 2 }}>
-                          <Text size="sm">{vocab.koreanTitle}</Text>
-                          <Text variant="regular" size="xs" style={{ color: "#6B7280" }}>{vocab.englishTitle}</Text>
-                        </View>
-                        <View style={styles.timelineChevron}>
-                          <Ionicons name="arrow-forward" size={14} color="#5B5FEF" />
-                        </View>
+
+              <View style={{ borderTopWidth: 1, borderColor: "#EBEBF0", marginHorizontal: 4 }}>
+                {card.vocabulary.map((vocab, vocabIndex) => (
+                  <TouchableOpacity key={vocabIndex} onPress={() => router.push({
+                    pathname: "/vocabulary/vocabulary-flash-card",
+                    params: {
+                      chapter: index,
+                      vocabularyIndex: vocabIndex,
+                      chapterName: card.chapterName,
+                      koreanChapterName: card.koreanChapterName,
+                      vocabularyTitle: vocab.koreanTitle,
+                      vocabularyEnglishTitle: vocab.englishTitle
+                    }
+                  })}>
+                    <View style={{ flexDirection: "row", alignItems: "center", paddingHorizontal: 8, paddingVertical: 12 }}>
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <Text size="sm">{vocab.koreanTitle}</Text>
+                        <Text variant="regular" size="xs" style={{ color: "#6B7280" }}>{vocab.englishTitle}</Text>
                       </View>
-                      {vocabIndex < card.vocabulary.length - 1 && (
-                        <View style={{ height: 1, backgroundColor: "#F3F4F6", marginHorizontal: 4 }} />
-                      )}
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              )}
+                      <View style={styles.timelineChevron}>
+                        <Ionicons name="arrow-forward" size={14} color="#5B5FEF" />
+                      </View>
+                    </View>
+                    {vocabIndex < card.vocabulary.length - 1 && (
+                      <View style={{ height: 1, backgroundColor: "#F3F4F6", marginHorizontal: 4 }} />
+                    )}
+                  </TouchableOpacity>
+                ))}
+              </View>
+
             </View>
           )}
         />

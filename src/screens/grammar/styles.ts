@@ -1,9 +1,10 @@
+import { COLORS } from "@/constants/theme";
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F0F7FF",
+
   },
   content: {
     flex: 1,
@@ -54,10 +55,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  headerLeft: {
-    flex: 1,
-    alignItems: "flex-start",
-  },
+
   headerCenter: {
     flex: 2,
     alignItems: "center",
@@ -66,7 +64,63 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
   },
-  headerTitle: {
-    color: "white",
+
+  customHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+     flexDirection: "row",
+     alignItems: "center",
+     justifyContent: "space-between",
+   },
+   headerLeft: {
+     flexDirection: "row",
+     alignItems: "center",
+     flex: 1,
+     gap: 12,
+   },
+   backButton: {
+     width: 36,
+     height: 36,
+     borderRadius: 12,
+     backgroundColor: "#ECEEFF",
+     alignItems: "center",
+     justifyContent: "center",
+   },
+   avatarContainer: {
+     width: 50,
+     height: 50,
+     borderRadius: 25,
+     backgroundColor: COLORS.primarydark,
+     justifyContent: "center",
+     alignItems: "center",
+     marginRight: 12,
+   },
+   foxAvatar: {
+     fontSize: 24,
+   },
+   titleContainer: {
+     flex: 1,
+   },
+   headerTitle: {
+     fontSize: 18,
+     fontFamily: "Poppins-Bold",
+     marginBottom: 2,
+   },
+   headerSubtitle: {
+     marginTop: -8,
+     fontSize: 12,
+     fontFamily: "Poppins-Regular",
+     color: COLORS.primarydark,
+   },
+   headerAvatarButton: {
+
+    borderRadius: 21,
+    backgroundColor: "white",
+    padding: 1,
+  },
+  headerAvatar: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
   },
 });

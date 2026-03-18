@@ -5,25 +5,25 @@ import { ScrollView, StyleSheet, View } from "react-native";
 export default function Grammar1Screen() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      
+
 
       <View style={styles.card}>
-       
-      <View style={styles.header}>
-        <View style={styles.headerIcon}>
-          <Text style={styles.bookIcon}>📘</Text>
+
+        <View style={styles.header}>
+          <View style={styles.headerIcon}>
+            <Text style={styles.bookIcon}>📘</Text>
+          </View>
+          <View style={styles.headerTitleGroup}>
+            <Text variant="bold" size="sm">
+              Tata Bahasa 1
+            </Text>
+          </View>
+          <View style={styles.tag}>
+            <Text variant="bold" size="lg" style={styles.tagText}>
+              입니다, 입니까?
+            </Text>
+          </View>
         </View>
-        <View style={styles.headerTitleGroup}>
-          <Text variant="bold" size="sm">
-            Tata Bahasa 1
-          </Text>
-        </View>
-        <View style={styles.tag}>
-          <Text variant="bold" size="lg" style={styles.tagText}>
-            입니다, 입니까?
-          </Text>
-        </View>
-      </View>
         <Text variant="regular" size="md" style={styles.descriptionEnglish}>
           {"'"}
           <Text style={styles.highlightRed}>입니다</Text>
@@ -36,13 +36,13 @@ export default function Grammar1Screen() {
           {"'"} dan digunakan saat bertanya tentang atribut subjek.
         </Text>
 
-     
+
 
         <View style={styles.dialogSection}>
-          <View style={{paddingHorizontal: 16, paddingVertical: 8, backgroundColor: "#C5D99A", borderTopLeftRadius: 8, borderBottomRightRadius: 8, alignSelf: "flex-start"}}>
+          <View style={{ paddingHorizontal: 16, paddingVertical: 8, backgroundColor: "#C5D99A", borderTopLeftRadius: 8, borderBottomRightRadius: 8, alignSelf: "flex-start" }}>
             <Text variant="bold" size="sm">예</Text>
           </View>
-          <View style={{paddingHorizontal: 16}}>
+          <View style={{ paddingHorizontal: 16 }}>
             <View style={styles.exampleItem}>
               <Text variant="regular" size="md" style={styles.exampleText}>
                 (저는) 유수프<Text style={styles.highlightRed}>입니다</Text>.
@@ -60,7 +60,7 @@ export default function Grammar1Screen() {
               </Text>
             </View>
           </View>
-          <View style={{paddingHorizontal: 16}}>
+          <View style={{ paddingHorizontal: 16 }}>
             <View style={styles.dialogItem}>
               <View style={styles.dialogRow}>
                 <Text variant="medium" size="md" style={styles.dialogLabel}>
@@ -97,7 +97,6 @@ export default function Grammar1Screen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
     padding: 16,
   },
   header: {
@@ -124,7 +123,7 @@ const styles = StyleSheet.create({
     gap: 8,
     flex: 1,
   },
- 
+
   tag: {
     backgroundColor: "#E3F2FD",
     paddingHorizontal: 20,
@@ -178,15 +177,15 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   exampleText: {
-   
+
     marginLeft: 24,
     lineHeight: 24,
   },
   translationText: {
-   
+
     marginLeft: 24,
     marginTop: 2,
-   
+
   },
   dialogSection: {
     gap: 16,
@@ -203,11 +202,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   dialogLabel: {
-   
+
     width: 32,
   },
   dialogText: {
-   
+
     flex: 1,
     lineHeight: 24,
   },

@@ -4,6 +4,9 @@ import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 
 
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import Grammar1Screen from "./Materi/Bab1/Grammar1";
 import { styles } from "./styles";
 
 export default function GrammarScreen() {
@@ -17,23 +20,42 @@ export default function GrammarScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.headerContent}>
-          <View style={styles.headerLeft}>
-           
-          </View>
-          <View style={styles.headerCenter}>
-            <Text variant="bold" size="xl" style={{ color: "white" }}>
-            Grammar Lesson
+      <View style={[styles.customHeader]}>
+        <View style={styles.headerLeft}>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            activeOpacity={0.7}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={20} color="#1A1941" />
+          </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <Text variant="bold" size="xl" style={[styles.headerTitle]}>
+              Kosakata
+            </Text>
+            <Text
+              variant="regular"
+              size="md"
+              style={[styles.headerSubtitle]}
+            >
+              List Materi Kosakata EPS-TOPIK
             </Text>
           </View>
-          <View style={styles.headerRight}>
-         
-          </View>
         </View>
+        <TouchableOpacity
+          style={styles.headerAvatarButton}
+          onPress={() => null}
+          activeOpacity={0.8}
+        >
+          <Image
+            source={require("../../assets/images/avatar.jpg")}
+            style={styles.headerAvatar}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
-  
+        <Grammar1Screen />
       </ScrollView>
     </View>
   );
