@@ -5,7 +5,7 @@ import React from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 
-export const QuizListScreen: React.FC = () => {
+export const VocabularyQuizScreen: React.FC = () => {
   const handleQuizPress = (quizId: string) => {
     console.log(`Quiz ${quizId} pressed!`);
   };

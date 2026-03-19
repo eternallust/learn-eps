@@ -243,11 +243,7 @@ export const styles = StyleSheet.create({
     marginTop: 8,
     borderRadius: 12,
     marginBottom: 8,
-    shadowColor: "#A0A8D0",
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 8,
+   
   },
   bannerContainer: {
     height: 90,

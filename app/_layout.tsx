@@ -6,8 +6,8 @@ import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
-import { SvgXml } from "react-native-svg";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SvgXml } from "react-native-svg";
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -51,6 +51,7 @@ export default function RootLayout() {
               <Stack.Screen name="quiz/index" />
               <Stack.Screen name="vocabulary/index" />
               <Stack.Screen name="vocabulary/vocabulary-flash-card/index" />
+              <Stack.Screen name="vocabulary/vocabulary-finish-learn/index" />
               <Stack.Screen name="profile/index" />
               <Stack.Screen name="simulation/index" />
               <Stack.Screen name="simulation/quiz/index" />

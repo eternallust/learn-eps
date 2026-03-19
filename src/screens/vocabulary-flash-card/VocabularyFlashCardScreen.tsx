@@ -2,7 +2,7 @@ import { COLORS } from "@/constants/theme";
 import { vocabularies } from "@/data/vocabulary";
 import { Text } from "@components/ui";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Dimensions,
@@ -124,6 +124,17 @@ const VocabularyFlashCardScreen: React.FC = () => {
   const remainingCards = totalCards - currentIndex - 1;
   const isFirst = currentIndex === 0;
   const isLast = remainingCards === 0;
+
+  // Reset ke kartu pertama saat kembali dari FinishLearn
+  useFocusEffect(
+    useCallback(() => {
+      setCurrentIndex(0);
+      translateX.value = 0;
+      translateY.value = 0;
+      contentOpacity.value = 1;
+      bgProgress.value = 0;
+    }, [translateX, translateY, contentOpacity, bgProgress])
+  );
 
   useEffect(() => {
     canAdvanceSV.value = currentIndex < totalCards - 1;
@@ -378,19 +389,24 @@ const VocabularyFlashCardScreen: React.FC = () => {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            style={[
-              styles.navBtn,
-              styles.navBtnPrimary,
-              isLast && styles.navBtnDisabled,
-            ]}
-            onPress={advanceWithAnimation}
+            style={[styles.navBtn, styles.navBtnPrimary]}
+            onPress={isLast ? () => router.push({
+              pathname: "/vocabulary/vocabulary-finish-learn" as any,
+              params: {
+                chapter: params.chapter,
+                vocabularyIndex: params.vocabularyIndex,
+                chapterName: params.chapterName,
+                koreanChapterName: params.koreanChapterName,
+                vocabularyTitle: params.vocabularyTitle,
+                vocabularyEnglishTitle: params.vocabularyEnglishTitle,
+              },
+            }) : advanceWithAnimation}
             activeOpacity={0.7}
-            disabled={isLast}
           >
             <Ionicons
-              name="arrow-forward"
+              name={isLast ? "checkmark" : "arrow-forward"}
               size={20}
-              color={isLast ? "#B0B8D4" : "white"}
+              color="white"
             />
           </TouchableOpacity>
         </View>

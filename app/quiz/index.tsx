@@ -1,5 +1,5 @@
-import { QuizListScreen } from "@/screens/quiz-list-screen/QuizListScreen";
+import { VocabularyQuizScreen } from "@/screens/quiz-list-screen/VocabularyQuizScreen";
 
 export default function Quiz() {
-  return <QuizListScreen />;
+  return <VocabularyQuizScreen />;
 }
