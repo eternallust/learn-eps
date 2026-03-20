@@ -1,4 +1,4 @@
-import { VocabularyQuizScreen } from "@/screens/quiz-list-screen/VocabularyQuizScreen";
+import { VocabularyQuizScreen } from "@/screens/vocabulary-quiz/VocabularyQuizScreen";
 
 export default function Quiz() {
   return <VocabularyQuizScreen />;

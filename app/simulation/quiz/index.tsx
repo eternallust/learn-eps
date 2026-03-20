@@ -1,4 +1,4 @@
-import QuizScreen from "@screens/quiz/QuizScreen";
+import QuizScreen from "@screens/quiz/Quiz";
 import React from "react";
 
 // Data soal simulasi

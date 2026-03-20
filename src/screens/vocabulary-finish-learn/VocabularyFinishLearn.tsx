@@ -1,6 +1,6 @@
 import { Text } from "@components/ui";
 import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import LottieView from "lottie-react-native";
 import React, { useEffect, useRef } from "react";
 import { TouchableOpacity, View } from "react-native";
@@ -8,6 +8,7 @@ import { styles } from "./styles";
 
 export const VocabularyFinishLearn: React.FC = () => {
   const router = useRouter();
+  const params = useLocalSearchParams();
   const confettiRef = useRef<LottieView>(null);
 
   useEffect(() => {
@@ -23,7 +24,17 @@ export const VocabularyFinishLearn: React.FC = () => {
   };
 
   const handleTestMemory = () => {
-    router.push("/quiz" as any);
+    router.push({
+      pathname: "/quiz" as any,
+      params: {
+        chapter: params.chapter,
+        vocabularyIndex: params.vocabularyIndex,
+        chapterName: params.chapterName,
+        koreanChapterName: params.koreanChapterName,
+        vocabularyTitle: params.vocabularyTitle,
+        vocabularyEnglishTitle: params.vocabularyEnglishTitle,
+      },
+    });
   };
 
   return (
@@ -58,9 +69,9 @@ export const VocabularyFinishLearn: React.FC = () => {
 
         {/* Subtitle */}
         <Text variant="regular" size="md" style={styles.subtitle}>
-          Apakah ingin aku{" "}
+          Pede dengan hafalanmu?{" "}
           <Text variant="bold" size="md" style={styles.subtitleHighlight}>
-            tes hafalanmu?
+            Ayo kita tes!
           </Text>
         </Text>
 

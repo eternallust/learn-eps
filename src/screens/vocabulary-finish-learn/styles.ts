@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
   // ── Container ─────────────────────────────────────────────────
   container: {
     flex: 1,
-    backgroundColor: "#ECEEF8",
     alignItems: "center",
     justifyContent: "space-between",
   },
