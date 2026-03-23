@@ -1,9 +1,10 @@
 import { Text } from "@components/ui";
+import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { Audio, AVPlaybackStatus } from "expo-av";
-import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import LottieView from "lottie-react-native";
+import * as ScreenOrientation from "expo-screen-orientation";
+import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Image,
@@ -12,8 +13,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated, {
+  Easing,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { styles } from "./styles";
-
 
 interface QuizItem {
   id: number;
@@ -32,18 +40,23 @@ interface QuizScreenProps {
   timePerQuestion?: number;
 }
 
+const OPTION_LABELS = ["A", "B", "C", "D"];
+
 export default function QuizScreen({
   quizData,
-  title = "Aptitude Test",
-  timePerQuestion = 1200,
+  title = "Simulasi CBT",
+  timePerQuestion = 3600,
 }: QuizScreenProps) {
+  const insets = useSafeAreaInsets();
+  /** Hanya untuk area kartu (body): padding kiri/kanan simetris */
+  const bodyHorizontalInset = Math.max(insets.left, insets.right);
+
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(timePerQuestion);
   const [quizFinished, setQuizFinished] = useState(false);
 
-  // Audio player
   const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -52,7 +65,37 @@ export default function QuizScreen({
 
   const currentQuestion = quizData[currentQuestionIndex];
 
-  // Format waktu mm:ss
+  // ── Animasi fade + scale ringan ───────────────────────────────────
+  const FADE_MS = 220;
+  const SCALE_SHRINK = 0.97;
+  const opacity = useSharedValue(1);
+  const scale = useSharedValue(1);
+
+  const animatedBodyStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [{ scale: scale.value }],
+  }));
+
+  const navigateWithSlide = (_goNext: boolean, action: () => void) => {
+    const easeOut = Easing.out(Easing.ease);
+    const easeIn = Easing.in(Easing.ease);
+    opacity.value = withTiming(0, { duration: FADE_MS, easing: easeOut });
+    scale.value = withTiming(SCALE_SHRINK, { duration: FADE_MS, easing: easeOut }, (done) => {
+      if (done) {
+        runOnJS(action)();
+        opacity.value = withTiming(1, { duration: FADE_MS, easing: easeIn });
+        scale.value = withTiming(1, { duration: FADE_MS, easing: easeIn });
+      }
+    });
+  };
+
+  useEffect(() => {
+    ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+    return () => {
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT_UP);
+    };
+  }, []);
+
   const formatAudioTime = (millis: number) => {
     const totalSeconds = Math.floor(millis / 1000);
     const mins = Math.floor(totalSeconds / 60);
@@ -60,13 +103,11 @@ export default function QuizScreen({
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
-  // Callback untuk update status audio
   const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
     if (status.isLoaded) {
       setDuration(status.durationMillis || 0);
       setPosition(status.positionMillis || 0);
       setIsPlaying(status.isPlaying);
-
       if (status.didJustFinish) {
         setIsPlaying(false);
         setPosition(0);
@@ -74,10 +115,8 @@ export default function QuizScreen({
     }
   };
 
-  // Default audio dari assets
   const defaultAudio = require("@assets/sound/file_example_MP3_700KB.mp3");
 
-  // Load audio saat soal listening muncul
   useEffect(() => {
     const loadAudio = async () => {
       if (currentQuestion.type === "listening") {
@@ -96,9 +135,7 @@ export default function QuizScreen({
         setIsLoading(false);
       }
     };
-
     loadAudio();
-
     return () => {
       if (soundRef.current) {
         soundRef.current.unloadAsync();
@@ -110,10 +147,8 @@ export default function QuizScreen({
     };
   }, [currentQuestionIndex, currentQuestion.audioSource, currentQuestion.type]);
 
-  // Play/Pause audio
   const togglePlayPause = async () => {
     if (!soundRef.current) return;
-
     if (isPlaying) {
       await soundRef.current.pauseAsync();
     } else {
@@ -124,336 +159,232 @@ export default function QuizScreen({
     }
   };
 
-  // Seek audio
   const onSliderValueChange = async (value: number) => {
     if (soundRef.current) {
       await soundRef.current.setPositionAsync(value);
     }
   };
 
-  // Timer untuk soal
-  useEffect(() => {
-    if (timeLeft > 0 && !quizFinished) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && !quizFinished) {
-      handleNextQuestion();
-    }
-  }, [timeLeft, quizFinished]);
-
-  // Format timer sebagai mm:ss
   const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
+    if (hrs > 0) {
+      return `${hrs}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+    }
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
-  const handleOptionSelect = (optionIndex: number) => {
-    setSelectedOption(optionIndex);
+  const stopAndUnloadAudio = async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.unloadAsync();
+      soundRef.current = null;
+      setIsPlaying(false);
+      setPosition(0);
+      setDuration(0);
+    }
   };
 
   const handleNextQuestion = async () => {
-    // Stop dan unload audio jika ada
-    if (soundRef.current) {
-      await soundRef.current.stopAsync();
-      await soundRef.current.unloadAsync();
-      soundRef.current = null;
-      setIsPlaying(false);
-      setPosition(0);
-      setDuration(0);
-    }
-
-    // Periksa jawaban dan tambahkan skor jika benar
-    if (selectedOption === currentQuestion.correctAnswer) {
-      setScore(score + 1);
-    }
-
-    // Reset pilihan
-    setSelectedOption(null);
-
-    // Pindah ke soal berikutnya atau selesai
-    if (currentQuestionIndex < quizData.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimeLeft(timePerQuestion); // Reset timer
-    } else {
-      setQuizFinished(true);
-    }
+    await stopAndUnloadAudio();
+    const isCorrect = selectedOption === currentQuestion.correctAnswer;
+    navigateWithSlide(true, () => {
+      if (isCorrect) setScore((s) => s + 1);
+      setSelectedOption(null);
+      if (currentQuestionIndex < quizData.length - 1) {
+        setCurrentQuestionIndex((i) => i + 1);
+      } else {
+        setQuizFinished(true);
+      }
+    });
   };
 
-  const handleRestartQuiz = async () => {
-    // Stop dan unload audio jika ada
-    if (soundRef.current) {
-      await soundRef.current.stopAsync();
-      await soundRef.current.unloadAsync();
-      soundRef.current = null;
-      setIsPlaying(false);
-      setPosition(0);
-      setDuration(0);
+  const handlePrevQuestion = async () => {
+    if (currentQuestionIndex === 0) {
+      router.back();
+      return;
     }
-
-    setCurrentQuestionIndex(0);
-    setSelectedOption(null);
-    setScore(0);
-    setTimeLeft(timePerQuestion);
-    setQuizFinished(false);
+    await stopAndUnloadAudio();
+    navigateWithSlide(false, () => {
+      setSelectedOption(null);
+      setCurrentQuestionIndex((i) => i - 1);
+    });
   };
 
-  const lottieRef = useRef<LottieView>(null);
-  const confettiRef = useRef<LottieView>(null);
-  const earnedPoints = score * 10;
 
-  useEffect(() => {
-    if (quizFinished && confettiRef.current) {
-      confettiRef.current.play();
+  return (
+    <View style={styles.root}>
+      <StatusBar hidden />
 
-      const interval = setInterval(() => {
-        confettiRef.current?.play();
-      }, 4000);
+      {/* ── Header ── */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft}>
+          <Text variant="bold" style={styles.headerTitle} numberOfLines={1}>
+            {title}
+          </Text>
+          <Ionicons name="information-circle-outline" size={16} color="#A78BFA" style={{ marginLeft: 6 }} />
+        </View>
 
-      return () => clearInterval(interval);
-    }
-  }, [quizFinished]);
-
-  // Tampilan hasil akhir
-  if (quizFinished) {
-    return (
-      <View style={styles.resultBackground}>
-        <View style={styles.confettiOverlay} pointerEvents="none">
-          <LottieView
-            ref={confettiRef}
-            source={require("@assets/images/confeti.json")}
-            loop={false}
-            style={styles.confettiAnimation}
+        <View style={[styles.timerBadge, timeLeft <= 300 && styles.timerBadgeWarning]}>
+          <Text variant="bold" style={[styles.timerText, timeLeft <= 300 && styles.timerWarning]}>
+            {formatTime(timeLeft)}
+          </Text>
+          <Ionicons
+            name="eye-outline"
+            size={15}
+            color={timeLeft <= 300 ? "#DC2626" : "#7C3AED"}
+            style={{ marginLeft: 6 }}
           />
         </View>
 
-        <View style={styles.resultContainer}>
-          <View style={styles.lottieContainer}>
-            <LottieView
-              ref={lottieRef}
-              source={require("@assets/images/pass.json")}
-              autoPlay
-              loop={false}
-              style={styles.lottieAnimation}
-            />
-          </View>
 
-          <Text variant="bold" style={styles.pointsText}>
-            +{earnedPoints} Points
-          </Text>
-
-          <Text variant="bold" size="lg" style={styles.congratsTitle}>
-            Congratulations, collect more
-          </Text>
-
-          <Text variant="regular" size="md" style={styles.congratsSubtitle}>
-            To get more points, immediately exchange{"\n"}your trash with us. and get abundant points
-          </Text>
-
-          <TouchableOpacity
-            style={styles.seePointsButton}
-            onPress={() => router.push("/")}
-          >
-            <Text variant="medium" size="md" style={styles.seePointsButtonText}>
-              See my points
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.tryAgainButton}
-            onPress={handleRestartQuiz}
-          >
-            <Text variant="medium" size="md" style={styles.tryAgainButtonText}>
-              Coba Lagi
-            </Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    );
-  }
 
-  return (
-    <LinearGradient
-      colors={["#EFF6FF", "#FFFFFF"]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.gradientBackground}
-    >
-      {/* Header */}
-      {/* <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Text style={styles.backIcon}>{"<"}</Text>
-        </TouchableOpacity>
-        
-        <Text style={styles.headerTitle}>{title}</Text>
-        
-        <View style={styles.timerContainer}>
-          <Text style={styles.timerIcon}>⏱</Text>
-          <Text
-            style={[
-              styles.timerText,
-              timeLeft <= 30 && styles.timerWarning,
-            ]}
-          >
-            {formatTime(timeLeft)}
-          </Text>
-        </View>
-      </View> */}
-      <View style={styles.headerContainer}>
-        <View style={styles.headerContent}>
-          <View style={styles.headerLeft}>
-            {/* <BackButton /> */}
-          </View>
-          <View style={styles.headerCenter}>
-            <Text variant="bold" size="xl">
-              Simulasi CBT
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View style={{ paddingHorizontal: 20 }}>
-        <View style={styles.headerContent}>
-          <Text style={styles.questionCounter}>
-            Questions {currentQuestionIndex + 1} of {quizData.length}
-          </Text>
-          <View style={styles.timerContainer}>
-              <Text style={styles.timerIcon}>⏱</Text>
-              <Text
-                style={[
-                  styles.timerText,
-                  timeLeft <= 30 && styles.timerWarning,
-                ]}
-              >
-                {formatTime(timeLeft)}
-              </Text>
-            </View>
-          </View>
-          
-          {/* Progress Bar */}
-          <View style={styles.progressBarContainer}>
-            <LinearGradient
-              colors={["#00458e","#000328",]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 0 }}
-              style={[
-                styles.progressBarFill,
-                { width: `${((currentQuestionIndex + 1) / quizData.length) * 100}%` }
-              ]}
-            />
-          </View>
-        </View>
+      {/* ── Body: satu-satunya area dengan inset horizontal (header/footer full lebar) ── */}
+      <View style={[styles.bodySafeHorizontal, { paddingHorizontal: bodyHorizontalInset }]}>
+        <View style={styles.landscapeBody}>
 
-
-      <ScrollView style={styles.contentContainer} showsVerticalScrollIndicator={false}>
-        {/* Question Counter */}
-       
-        {/* Question Text */}
-        <View style={styles.questionContainer}>
-          <Text style={styles.questionText}>
-            {currentQuestion.question}
-          </Text>
-
-          {/* Gambar jika tipe soal adalah gambar */}
-          {currentQuestion.type === "image" && currentQuestion.imageSource && (
-            <Image
-              source={currentQuestion.imageSource}
-              style={styles.questionImage}
-              resizeMode="contain"
-            />
-          )}
-          {currentQuestion.type === "listening" && (
-            <View style={styles.listeningContainer}>
-              {currentQuestion.listeningText && (
-                <Text style={styles.listeningText}>{currentQuestion.listeningText}</Text>
-              )}
-              
-              <View style={styles.audioPlayerContainer}>
-                <TouchableOpacity
-                  style={styles.playPauseButton}
-                  onPress={togglePlayPause}
-                  disabled={isLoading || !soundRef.current}
+          {/* Panel Kiri — Soal */}
+          <View style={styles.leftPanel}>
+            {/* Kartu soal: bingkai statis, hanya isi yang animasi */}
+            <View style={styles.questionCard}>
+              <Animated.View style={[styles.cardInnerAnimated, animatedBodyStyle]}>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={styles.questionCardBody}
                 >
-                  <Text style={styles.playPauseIcon}>
-                    {isLoading ? "⏳" : isPlaying ? "⏸" : "▶"}
+                  <Text variant="bold" style={styles.questionText}>
+                    {currentQuestion.question}
                   </Text>
-                </TouchableOpacity>
 
-                <View style={styles.audioSliderContainer}>
-                  <Slider
-                    style={styles.audioSlider}
-                    minimumValue={0}
-                    maximumValue={duration}
-                    value={position}
-                    onSlidingComplete={onSliderValueChange}
-                    minimumTrackTintColor="#4338CA"
-                    maximumTrackTintColor="#E5E7EB"
-                    thumbTintColor="#4338CA"
-                    disabled={!soundRef.current}
-                  />
-                  <View style={styles.audioTimeContainer}>
-                    <Text style={styles.audioTimeText}>
-                      {formatAudioTime(position)}
-                    </Text>
-                    <Text style={styles.audioTimeText}>
-                      {formatAudioTime(duration)}
-                    </Text>
-                  </View>
-                </View>
+                  {currentQuestion.type === "image" && currentQuestion.imageSource && (
+                    <Image
+                      source={currentQuestion.imageSource}
+                      style={styles.questionImage}
+                      resizeMode="contain"
+                    />
+                  )}
+
+                  {currentQuestion.type === "listening" && (
+                    <View style={styles.listeningContainer}>
+                      {currentQuestion.listeningText && (
+                        <Text style={styles.listeningText}>{currentQuestion.listeningText}</Text>
+                      )}
+                      <View style={styles.audioPlayerContainer}>
+                        <TouchableOpacity
+                          style={styles.playPauseButton}
+                          onPress={togglePlayPause}
+                          disabled={isLoading || !soundRef.current}
+                        >
+                          <Text style={styles.playPauseIcon}>
+                            {isLoading ? "⏳" : isPlaying ? "⏸" : "▶"}
+                          </Text>
+                        </TouchableOpacity>
+                        <View style={styles.audioSliderContainer}>
+                          <Slider
+                            style={styles.audioSlider}
+                            minimumValue={0}
+                            maximumValue={duration}
+                            value={position}
+                            onSlidingComplete={onSliderValueChange}
+                            minimumTrackTintColor="#7C3AED"
+                            maximumTrackTintColor="#DDD6FE"
+                            thumbTintColor="#7C3AED"
+                            disabled={!soundRef.current}
+                          />
+                          <View style={styles.audioTimeContainer}>
+                            <Text style={styles.audioTimeText}>{formatAudioTime(position)}</Text>
+                            <Text style={styles.audioTimeText}>{formatAudioTime(duration)}</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  )}
+                </ScrollView>
+              </Animated.View>
+
+              {/* Bar progress di bawah kartu — tetap statis */}
+              <View style={styles.twoToneBar}>
+                <View style={[styles.toneAnswered, { flex: 1 }]} />
+                <View style={[styles.toneRemaining, { flex: 1 }]} />
               </View>
             </View>
-          )}
-        </View>
-       
+          </View>
 
-        {/* Pilihan Jawaban */}
-        <View style={styles.optionsContainer}>
-          {currentQuestion.options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.optionButton,
-                selectedOption === index && styles.selectedOption,
-              ]}
-              onPress={() => handleOptionSelect(index)}
-              activeOpacity={0.7}
-            >
-              <Text
-                style={[
-                  styles.optionText,
-                  selectedOption === index && styles.selectedOptionText,
-                ]}
-              >
-                {option}
-              </Text>
-              {selectedOption === index ? (
-                <View style={styles.checkIcon}>
-                  <Text style={styles.checkIconText}>✓</Text>
+          {/* Panel Kanan — Opsi: bingkai statis */}
+          <View style={styles.leftPanel}>
+            <View style={[styles.questionCard, { padding: 16 }]}>
+              <Text variant="bold" style={styles.selectOptionTitle}>Pilih jawaban yang tepat</Text>
+              <Animated.View style={[styles.cardInnerAnimated, animatedBodyStyle]}>
+
+
+                <View style={styles.optionsGrid}>
+                  {currentQuestion.options.map((option, index) => {
+                    const isSelected = selectedOption === index;
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        style={[
+                          styles.optionButton,
+                          isSelected && styles.optionButtonSelected,
+                        ]}
+                        onPress={() => setSelectedOption(index)}
+                        activeOpacity={0.7}
+                      >
+                        <View style={[styles.optionBadge, isSelected && styles.optionBadgeSelected]}>
+                          <Text variant="bold" style={[styles.optionBadgeText, isSelected && styles.optionBadgeTextSelected]}>
+                            {OPTION_LABELS[index]}
+                          </Text>
+                        </View>
+                        <Text
+                          variant="regular"
+                          style={[styles.optionText, isSelected && styles.optionTextSelected]}
+                          numberOfLines={2}
+                        >
+                          {option}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
                 </View>
-              ) : (
-                <View style={styles.radioCircle} />
-              )}
-            </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
 
-      {/* Tombol Next */}
-      <View style={styles.bottomContainer}>
-        <TouchableOpacity
-          style={[
-            styles.nextButton,
-            selectedOption === null && styles.disabledButton,
-          ]}
-          onPress={handleNextQuestion}
-          disabled={selectedOption === null}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.nextButtonText}>
-            {currentQuestionIndex === quizData.length - 1 ? "Finish" : "Next"}
-          </Text>
-          <Text style={styles.nextButtonText}>→</Text>
-        </TouchableOpacity>
+              </Animated.View>
+            </View>
+          </View>
+
+        </View>
       </View>
-    </LinearGradient>
+
+      {/* ── Footer ── */}
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.helpButton} activeOpacity={0.7}>
+          <Ionicons name="help" size={13} color="#7C3AED" />
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity style={styles.questionCounter} activeOpacity={0.7}>
+          <Text variant="medium" style={styles.questionCounterText}>
+            Soal {currentQuestionIndex + 1} dari {quizData.length}
+          </Text>
+          <Ionicons name="chevron-down" size={12} color="#5B21B6" style={{ marginLeft: 4 }} />
+        </TouchableOpacity> */}
+
+        <View style={styles.footerActions}>
+          <TouchableOpacity style={styles.backButton} onPress={handlePrevQuestion} activeOpacity={0.8}>
+            <Text variant="medium" style={styles.backButtonText}>Kembali</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.nextButton, selectedOption === null && styles.nextButtonDisabled]}
+            onPress={handleNextQuestion}
+            disabled={selectedOption === null}
+            activeOpacity={0.8}
+          >
+            <Text variant="bold" style={styles.nextButtonText}>
+              {currentQuestionIndex === quizData.length - 1 ? "Selesai" : "Lanjut"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   );
 }

@@ -4009,6 +4009,11 @@ expo-router@~55.0.2:
     use-latest-callback "^0.2.1"
     vaul "^1.1.2"
 
+expo-screen-orientation@~55.0.9:
+  version "55.0.9"
+  resolved "https://registry.yarnpkg.com/expo-screen-orientation/-/expo-screen-orientation-55.0.9.tgz#69a8086556b76da2b6641f6105aa992a292c320b"
+  integrity sha512-eWCBhSV+oCmAJKbG5x/pS8Go76vJmq0Q1uRYYsk+8JaOQvl6HDS7O4yofH5Oq8ic3IZ4Qxjnheisqwf08M4xnA==
+
 expo-server@^55.0.6:
   version "55.0.6"
   resolved "https://registry.npmjs.org/expo-server/-/expo-server-55.0.6.tgz"

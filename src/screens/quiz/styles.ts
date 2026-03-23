@@ -1,193 +1,375 @@
 import { StyleSheet } from "react-native";
 
+// ── Palet warna utama ────────────────────────────────────────────────────────
+const C = {
+  bg: "#E5F2FF", // blue background
+  cardBg: "#FFFFFF",
+  cardAccent: "#9B6340", // coklat terracotta
+  navyDark: "#0D1B4B", // teks utama gelap
+  navyMid: "#1B3A6B", // progress remaining (biru tua)
+  crimson: "#C41E3A", // progress answered (merah)
+  purple: "#7C3AED",
+  purpleLight: "#E5F2FF",
+  purpleSoft: "#B3D4FF",
+  gray100: "#F3F4F6",
+  gray200: "#E5E7EB",
+  gray400: "#9CA3AF",
+  gray600: "#4B5563",
+  white: "#FFFFFF",
+};
+
 export const styles = StyleSheet.create({
-  container: {
+  // ── Root ────────────────────────────────────────────────────────────────────
+  root: {
     flex: 1,
+    overflow: "hidden",
   },
-  gradientBackground: {
-    flex: 1,
-  },
-  headerContainer: {
-    paddingTop: 20,
-    paddingHorizontal: 16,
-  },
-  headerContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  headerLeft: {
-    flex: 1,
-    alignItems: "flex-start",
-  },
-  headerCenter: {
-    flex: 2,
-    alignItems: "center",
-  },
-  headerRight: {
-    flex: 1,
-    alignItems: "flex-end",
-  },
-  headerTitle: {
-    color: "white",
-  },
+
+  // ── Header ──────────────────────────────────────────────────────────────────
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: C.white,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E2E4F0",
   },
-  backButton: {
-    padding: 8,
-  },
-  backIcon: {
-    color: "#6B21A8",
-    fontSize: 20,
-    fontWeight: "600",
-  },
-  // headerTitle: {
-  //   fontSize: 18,
-  //   fontWeight: "600",
-  //   color: "#1F2937",
-  // },
-  timerContainer: {
+  headerLeft: {
+    flex: 2,
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    backgroundColor: "#FEF3C7",
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 20,
-    marginBottom: 12,
-    marginTop: 12,
-    width: 70
   },
-  timerIcon: {
-    color: "#F59E0B",
-    fontSize: 16,
+  headerTitle: {
+    color: C.navyDark,
+    fontSize: 14,
+  },
+  timerBadge: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: C.purpleLight,
+    borderWidth: 1,
+    borderColor: C.purpleSoft,
+    borderRadius: 20,
+    paddingHorizontal: 12,
+    paddingVertical: 3,
+  },
+  timerBadgeWarning: {
+    borderColor: "#FCA5A5",
+    backgroundColor: "#FEF2F2",
   },
   timerText: {
-    color: "#78716C",
-    fontSize: 14,
-    fontWeight: "600",
+    color: C.purple,
+    fontSize: 13,
   },
   timerWarning: {
     color: "#DC2626",
   },
-  contentContainer: {
+  headerRight: {
+    flex: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    gap: 4,
+  },
+  headerIconBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: C.purpleSoft,
+    backgroundColor: C.purpleLight,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  // ── Body ────────────────────────────────────────────────────────────────────
+  /** Membungkus landscapeBody; padding horizontal aman hanya di sini */
+  bodySafeHorizontal: {
     flex: 1,
-    paddingHorizontal: 20,
+    backgroundColor: "#f0f3fb",
   },
-  questionCounter: {
-    color: "#192a56",
-    fontSize: 14,
-    fontWeight: "500",
-    marginVertical: 12,
+  landscapeBody: {
+    flex: 1,
+    flexDirection: "row",
+    padding: 10,
+    gap: 12,
   },
-  progressBarContainer: {
-    height: 8,
-    backgroundColor: "#E5E7EB",
-    borderRadius: 4,
-    marginBottom: 20,
+
+  // ── Panel Kiri ──────────────────────────────────────────────────────────────
+  leftPanel: {
+    flex: 1,
+    gap: 10,
+    borderRadius: 16,
+    shadowColor: "#1a2558",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+
+  // Counter + progress tipis di atas kartu
+  questionMeta: {
+    gap: 6,
+  },
+  questionMetaText: {
+    color: C.navyDark,
+    fontSize: 13,
+  },
+  questionMetaBold: {
+    color: C.navyDark,
+    fontSize: 13,
+  },
+  metaProgressTrack: {
+    height: 6,
+    backgroundColor: C.gray200,
+    borderRadius: 3,
     overflow: "hidden",
   },
-  progressBarFill: {
+  metaProgressFill: {
     height: "100%",
-    borderRadius: 4,
+    backgroundColor: C.navyMid,
+    borderRadius: 3,
+  },
+
+  // Kartu soal (tanpa shadow — shadow + opacity animasi = artefak/halo di RN)
+  questionCard: {
+    flex: 1,
+    backgroundColor: C.cardBg,
+    borderRadius: 16,
+    overflow: "hidden",
+  },
+  questionCardAccent: {
+    height: 56,
+    backgroundColor: C.cardAccent,
+  },
+  /** Isi kartu yang dianimasikan (bukan border/kartu luarnya) */
+  cardInnerAnimated: {
+    flex: 1,
+  },
+  questionCardBody: {
+    padding: 20,
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   questionText: {
-    color: "#1F2937",
-    fontSize: 18,
-    fontWeight: "bold",
-    lineHeight: 26,
-    marginBottom: 24,
+    color: C.navyDark,
+    fontSize: 22,
+    lineHeight: 32,
+    textAlign: "center",
   },
   questionImage: {
     width: "100%",
-    height: 200,
+    height: 130,
     resizeMode: "contain",
-    marginBottom: 24,
-    borderRadius: 12,
+    marginTop: 12,
+    borderRadius: 8,
   },
-  optionsContainer: {
-    gap: 12,
+
+  // Dua warna progress di bawah kartu
+  twoToneBar: {
+    height: 8,
+    flexDirection: "row",
+  },
+  toneAnswered: {
+    backgroundColor: C.crimson,
+  },
+  toneRemaining: {
+    backgroundColor: C.navyMid,
+  },
+
+  // ── Panel Kanan ─────────────────────────────────────────────────────────────
+  rightPanel: {
+    flex: 1,
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#1a2558",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  selectOptionTitle: {
+    color: C.navyDark,
+    fontSize: 14,
+    marginBottom: 12,
+  },
+
+  // Grid 2 kolom
+  optionsGrid: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
   },
   optionButton: {
+    width: "48%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: C.white,
+    borderRadius: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderWidth: 1.5,
+    borderColor: C.gray200,
+    gap: 10,
+  },
+  optionButtonSelected: {
+    borderColor: "#1A2558",
+    backgroundColor: "#EEF0FF",
+  },
+  optionBadge: {
+    width: 30,
+    height: 30,
+    borderRadius: 8,
+    backgroundColor: C.gray100,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  optionBadgeSelected: {
+    backgroundColor: "#1A2558",
+  },
+  optionBadgeText: {
+    color: C.gray600,
+    fontSize: 13,
+  },
+  optionBadgeTextSelected: {
+    color: C.white,
+  },
+  optionText: {
+    color: C.navyDark,
+    fontSize: 13,
+    flex: 1,
+    lineHeight: 18,
+  },
+  optionTextSelected: {
+    color: C.navyDark,
+  },
+
+  // ── Footer ──────────────────────────────────────────────────────────────────
+  footer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    backgroundColor: C.white,
+    borderTopWidth: 1,
+    borderTopColor: "#EEF0FF",
+  },
+  helpButton: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: "#E5E7EB",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  selectedOption: {
-    backgroundColor: "#9333EA",
-    borderColor: "#9333EA",
-  },
-  optionText: {
-    color: "#1F2937",
-    fontSize: 16,
-    fontWeight: "500",
-    flex: 1,
-  },
-  selectedOptionText: {
-    color: "#FFFFFF",
-  },
-  checkIcon: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "#FFFFFF",
+    borderColor: C.purpleSoft,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: C.purpleLight,
   },
-  checkIconText: {
-    color: "#9333EA",
-    fontWeight: "bold",
-    fontSize: 14,
-  },
-  radioCircle: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    borderWidth: 2,
-    borderColor: "#D1D5DB",
-    backgroundColor: "transparent",
-  },
-  bottomContainer: {
-    padding: 20,
-    paddingBottom: 32,
-  },
-  nextButton: {
-    backgroundColor: "#1F2937",
-    borderRadius: 12,
-    padding: 16,
-    alignItems: "center",
-    justifyContent: "center",
+  questionCounter: {
     flexDirection: "row",
+    alignItems: "center",
+    borderWidth: 1.5,
+    borderColor: C.purpleSoft,
+    borderRadius: 7,
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    backgroundColor: C.purpleLight,
+  },
+  questionCounterText: {
+    color: C.navyDark,
+    fontSize: 11,
+  },
+  footerActions: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
-  disabledButton: {
-    backgroundColor: "#9CA3AF",
+  backButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 18,
+    borderRadius: 7,
+    borderWidth: 1.5,
+    borderColor: C.navyDark,
+    backgroundColor: C.white,
+  },
+  backButtonText: {
+    color: C.navyDark,
+    fontSize: 12,
+  },
+  nextButton: {
+    backgroundColor: C.navyDark,
+    borderRadius: 7,
+    paddingVertical: 6,
+    paddingHorizontal: 20,
+  },
+  nextButtonDisabled: {
+    backgroundColor: C.gray400,
   },
   nextButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
+    color: C.white,
+    fontSize: 13,
   },
-  // Result screen styles
+
+  // ── Listening & Audio ────────────────────────────────────────────────────────
+  listeningContainer: {
+    marginTop: 14,
+    width: "100%",
+  },
+  listeningText: {
+    color: C.gray600,
+    fontSize: 13,
+    lineHeight: 21,
+    marginBottom: 12,
+    fontStyle: "italic",
+  },
+  audioPlayerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: C.purpleLight,
+    borderRadius: 12,
+    padding: 12,
+    gap: 12,
+  },
+  playPauseButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: C.purple,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.25)",
+  },
+  playPauseIcon: {
+    color: C.white,
+    fontSize: 14,
+  },
+  audioSliderContainer: {
+    flex: 1,
+  },
+  audioSlider: {
+    width: "100%",
+    height: 34,
+  },
+  audioTimeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 4,
+    marginTop: -6,
+  },
+  audioTimeText: {
+    color: C.gray400,
+    fontSize: 11,
+  },
+
+  // ── Result screen ────────────────────────────────────────────────────────────
   resultBackground: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: C.bg,
   },
   confettiOverlay: {
     position: "absolute",
@@ -208,214 +390,65 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   lottieContainer: {
-    width: 280,
-    height: 280,
+    width: 240,
+    height: 240,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: 24,
+    marginBottom: 20,
   },
   lottieAnimation: {
-    width: 400,
-    height: 400,
+    width: 320,
+    height: 320,
   },
   pointsText: {
-    fontSize: 36,
-    color: "#4338CA",
-    marginBottom: 16,
+    fontSize: 32,
+    color: C.purple,
+    marginBottom: 12,
   },
   congratsTitle: {
-    color: "#1F2937",
+    color: C.navyDark,
     textAlign: "center",
-    marginBottom: 12,
+    marginBottom: 10,
   },
   congratsSubtitle: {
     textAlign: "center",
-    color: "#9CA3AF",
+    color: C.gray400,
     lineHeight: 22,
-    marginBottom: 40,
+    marginBottom: 36,
   },
   seePointsButton: {
-    backgroundColor: "#4338CA",
+    backgroundColor: C.purple,
     borderRadius: 30,
-    paddingVertical: 16,
-    paddingHorizontal: 80,
+    paddingVertical: 14,
+    paddingHorizontal: 60,
     alignItems: "center",
-    shadowColor: "#4338CA",
+    shadowColor: C.purple,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 4,
   },
   seePointsButtonText: {
-    color: "#FFFFFF",
-    fontWeight: "600",
-    fontSize: 16,
+    color: C.white,
+    fontSize: 15,
   },
   tryAgainButton: {
-    marginTop: 16,
-    paddingVertical: 12,
+    marginTop: 14,
+    paddingVertical: 10,
     paddingHorizontal: 40,
   },
   tryAgainButtonText: {
-    color: "#4338CA",
-    fontWeight: "600",
+    color: C.purple,
     fontSize: 14,
   },
-  resultTitle: {
-    marginBottom: 16,
-    color: "#9333EA",
-    fontSize: 24,
+
+  // ── Unused dividers (kept for safety) ───────────────────────────────────────
+  divider: {
+    height: 1,
+    backgroundColor: C.purpleSoft,
   },
-  resultScore: {
-    marginBottom: 24,
-    color: "#6B21A8",
-    fontSize: 20,
-  },
-  resultText: {
-    textAlign: "center",
-    marginBottom: 32,
-    color: "#4B5563",
-    lineHeight: 24,
-  },
-  restartButton: {
-    backgroundColor: "#9333EA",
-    borderRadius: 12,
-    padding: 16,
-    alignItems: "center",
-    width: "100%",
-    marginBottom: 16,
-  },
-  restartButtonText: {
-    color: "#FFFFFF",
-    fontWeight: "600",
-  },
-  homeButton: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
-    alignItems: "center",
-    width: "100%",
-    borderWidth: 1.5,
-    borderColor: "#E5E7EB",
-  },
-  homeButtonText: {
-    color: "#1F2937",
-    fontWeight: "600",
-  },
-  // Listening & Audio Player styles
-  listeningContainer: {
-    marginTop: 16,
-  },
-  listeningText: {
-    color: "#4B5563",
-    fontSize: 14,
-    lineHeight: 22,
-    marginBottom: 16,
-    fontStyle: "italic",
-  },
-  audioPlayerContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#F3F4F6",
-    borderRadius: 12,
-    padding: 12,
-    gap: 12,
-  },
-  playPauseButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: "#4338CA",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#4338CA",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  playPauseIcon: {
-    color: "#FFFFFF",
-    fontSize: 18,
-  },
-  audioSliderContainer: {
-    flex: 1,
-  },
-  audioSlider: {
-    width: "100%",
-    height: 40,
-  },
-  audioTimeContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingHorizontal: 4,
-    marginTop: -8,
-  },
-  audioTimeText: {
-    color: "#6B7280",
-    fontSize: 12,
-  },
-  // Legacy styles (keeping for compatibility)
-  gradientHeader: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingHorizontal: 16,
-    backgroundColor: "#2A4ECA",
-  },
-  transparentHeader: {
-    backgroundColor: "transparent",
-  },
-  quizHeaderContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 8,
-  },
-  progressContainer: {
-    height: 6,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
-    borderRadius: 0,
-  },
-  progressBar: {
-    height: 6,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 0,
-  },
-  questionContainer: {
-    padding: 24,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: "#E5E7EB",
-  },
-  correctOption: {
-    backgroundColor: "#E8F5E9",
-    borderColor: "#4CAF50",
-  },
-  incorrectOption: {
-    backgroundColor: "#FFEBEE",
-    borderColor: "#F44336",
-  },
-  optionIndex: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: "#E0E0E0",
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 12,
-  },
-  selectedOptionIndex: {
-    backgroundColor: "#2196F3",
-  },
-  correctOptionIndex: {
-    backgroundColor: "#4CAF50",
-  },
-  incorrectOptionIndex: {
-    backgroundColor: "#F44336",
-  },
-  optionIndexText: {
-    color: "#FFFFFF",
+  verticalDivider: {
+    width: 1,
+    backgroundColor: C.purpleSoft,
   },
 });
