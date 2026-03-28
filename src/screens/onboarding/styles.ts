@@ -16,12 +16,21 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FEFEFE",
   },
+  image: {
+    position: "absolute",
+    top: height * 0.07,
+    left: 0,
+    right: 0,
+    height: 46,
+  },
   pager: {
     flex: 1,
   },
   page: {
     flex: 1,
     paddingHorizontal: SPACING.lg,
+    justifyContent: "center",
+    alignItems: "center",
   },
   hero: {
     height: height * HERO_RATIO,
@@ -45,8 +54,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   textBlock: {
-    flexGrow: 1,
-    justifyContent: "flex-start",
     paddingTop: SPACING.sm,
     paddingBottom: SPACING.md,
   },
@@ -133,7 +140,7 @@ export const styles = StyleSheet.create({
   },
   ctaFull: {
     width: "100%",
-    backgroundColor: COLORS.primary,
+    backgroundColor: "#192a56",
     paddingVertical: 16,
     borderRadius: 14,
     alignItems: "center",

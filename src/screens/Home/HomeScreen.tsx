@@ -1,6 +1,6 @@
 import { Text } from "@components/ui";
 import Feather from "@expo/vector-icons/build/Feather";
-import { router } from "expo-router";
+import { type Href, router } from "expo-router";
 import React from "react";
 import {
   Dimensions,
@@ -85,22 +85,12 @@ const HomeScreen: React.FC = () => {
         >
           <View style={[styles.customHeader]}>
             <View style={styles.headerLeft}>
-              <View style={styles.titleContainer}>
-                <Text variant="bold" size="xl" style={[styles.headerTitle]}>
-                  안녕하세요! 👋
-                </Text>
-                <Text
-                  variant="regular"
-                  size="md"
-                  style={[styles.headerSubtitle]}
-                >
-                  Mau Belajar Apa Kita Hari Ini?
-                </Text>
-              </View>
+             <Image source={require("../../assets/images/logo.png")} style={
+              { height: 38, width: 86}} resizeMode="contain" />
             </View>
             <TouchableOpacity
               style={styles.headerAvatarButton}
-              onPress={() => null}
+              onPress={() => router.push("/login" as Href)}
               activeOpacity={0.8}
             >
               <Image

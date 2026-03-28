@@ -12,7 +12,6 @@ export const styles = StyleSheet.create({
   scrollContainer: {
     paddingHorizontal: 20,
     paddingBottom: 15,
-    paddingTop: 15,
   },
   progressSection: {
     marginBottom: 15,
@@ -496,6 +495,7 @@ padding: 4,
   },
   // Custom Header styles
   customHeader: {
+
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

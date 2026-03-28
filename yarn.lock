@@ -5374,6 +5374,11 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+lucide-react-native@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/lucide-react-native/-/lucide-react-native-1.7.0.tgz#21631359a0b2f94323e41ab315839e9398ea36e6"
+  integrity sha512-wGJY5nosSawh028jg8r1ZKqnGPDIVfIL9xvKOs4wPYFQHeJMHsADYm/lmuFYXMXXatSkHhpsCjeqIRgeFGzf8g==
+
 makeerror@1.0.12:
   version "1.0.12"
   resolved "https://registry.npmjs.org/makeerror/-/makeerror-1.0.12.tgz"
@@ -6535,6 +6540,13 @@ react-is@^19.1.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-19.2.4.tgz"
   integrity sha512-W+EWGn2v0ApPKgKKCy/7s7WHXkboGcsrXE+2joLyVxkbyVQfO3MUEaUQDHoSmb8TFFrSKYa9mw64WZHNHSDzYA==
 
+react-native-avoid-softinput@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-avoid-softinput/-/react-native-avoid-softinput-8.0.2.tgz#e867a9d99a4c35fb55e76439b115daf8b8b059c4"
+  integrity sha512-2Tx/4Z3QWjQsf6WEz31ULWbI6RSNivH7UlSlCbA8cZUQvj3D6GO/GDX1e8JbmT+rXaSKgdQeHDITC8k0jjkb2g==
+  dependencies:
+    react-native-is-edge-to-edge "^1.1.6"
+
 react-native-gesture-handler@*, react-native-gesture-handler@~2.30.0:
   version "2.30.0"
   resolved "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.30.0.tgz"
@@ -6548,6 +6560,11 @@ react-native-is-edge-to-edge@1.2.1, react-native-is-edge-to-edge@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.2.1.tgz"
   integrity sha512-FLbPWl/MyYQWz+KwqOZsSyj2JmLKglHatd3xLZWskXOpRaio4LfEDEz8E/A6uD8QoTHW6Aobw1jbEwK7KMgR7Q==
+
+react-native-is-edge-to-edge@^1.1.6:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.3.1.tgz#feb9a6a8faf0874298947edd556e5af22044e139"
+  integrity sha512-NIXU/iT5+ORyCc7p0z2nnlkouYKX425vuU1OEm6bMMtWWR9yvb+Xg5AZmImTKoF9abxCPqrKC3rOZsKzUYgYZA==
 
 react-native-linear-gradient@^2.8.3:
   version "2.8.3"

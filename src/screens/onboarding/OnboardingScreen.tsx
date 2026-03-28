@@ -1,18 +1,21 @@
 import { STORAGE_KEYS } from "@/constants/storageKeys";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useRouter } from "expo-router";
+import { type Href, useRouter } from "expo-router";
 import React, { useCallback, useRef, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import PagerView, {
   type PagerViewOnPageSelectedEvent,
 } from "react-native-pager-view";
+
 import { OnboardingSkiaBackdrop } from "./OnboardingSkiaBackdrop";
+
+import { Image } from "expo-image";
 import { OnboardingSkiaHeroImage } from "./OnboardingSkiaHeroImage";
 import {
   ONBOARDING_BACKDROP_SIZE,
   ONBOARDING_IMAGE_HEIGHT,
   ONBOARDING_IMAGE_WIDTH,
-  styles,
+  styles
 } from "./styles";
 
 const SLIDES = [
@@ -36,7 +39,7 @@ const SLIDES = [
   },
   {
     image: require("../../assets/images/splash/ready-splash.png"),
-    title: "Siap Mulai? 🚀",
+    title: "Sudah Siap? 🚀",
     description:
       "Ayo mulai belajar sekarang dan wujudkan impianmu ke Korea!",
   },
@@ -79,13 +82,14 @@ export default function OnboardingScreen() {
 
   const finish = async () => {
     await setValue(true);
-    router.replace("/homescreen");
+    router.replace("/login" as Href);
   };
 
   const isLast = page === SLIDES.length - 1;
 
   return (
     <View style={styles.root}>
+      <Image source={require("../../assets/images/logo.png")} style={styles.image} contentFit="contain" />
       <PagerView
         ref={pagerRef}
         style={styles.pager}

@@ -15,10 +15,13 @@ import { SvgXml } from "react-native-svg";
 function AppShell() {
   const pathname = usePathname();
   const insets = useSafeAreaInsets();
-  const isOnboarding =
-    pathname === "/onboarding" || pathname.startsWith("/onboarding/");
+  const skipsRootSafeAreaPadding =
+    pathname === "/onboarding" ||
+    pathname.startsWith("/onboarding/") ||
+    pathname === "/login" ||
+    pathname.startsWith("/login/");
 
-  const safePadding = isOnboarding
+  const safePadding = skipsRootSafeAreaPadding
     ? undefined
     : { paddingTop: insets.top, paddingBottom: insets.bottom };
 
@@ -41,6 +44,7 @@ function AppShell() {
         >
           <Stack.Screen name="index" />
           <Stack.Screen name="onboarding/index" />
+          <Stack.Screen name="login/index" />
           <Stack.Screen name="homescreen/index" />
           <Stack.Screen name="lesson/index" />
           <Stack.Screen name="quiz/index" />
